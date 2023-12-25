@@ -8,7 +8,7 @@ export function Hero() {
         <img
           src="/skrzynia.webp"
           alt="logo"
-          className="object-cover h-screen w-screen md:object-cover opacity-30"
+          className="object-cover h-screen w-screen md:object-cover opacity-40"
         />
       </span>
 
