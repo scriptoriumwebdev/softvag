@@ -6,6 +6,7 @@ import { Footer } from "./components/footer";
 import { Providers } from "./providers";
 import Main from "./components/main";
 // import CookieBanner from "./components/cookiebanner";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function RootLayout({
           <Links />
           <div className="min-h-screen flex-grow w-full mx-auto bg-gray-100 dark:bg-zinc-900">
             {children}
+            <Analytics />
           </div>
           <Footer />
           {/* <CookieBanner /> */}
