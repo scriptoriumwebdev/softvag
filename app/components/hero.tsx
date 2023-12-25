@@ -4,8 +4,9 @@ import Link from "next/link";
 export function Hero() {
   return (
     <div className="relative -z-1 w-full min-h-screen flex justify-items-center items-center">
-      <span className="absolute max-h-screen bg-black">
-        <img
+      <span className="absolute  h-screen w-screen  bg-black">
+        <Image
+          fill
           src="/skrzynia.webp"
           alt="logo"
           className="object-cover h-screen w-screen md:object-cover opacity-40"
