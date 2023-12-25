@@ -52,7 +52,7 @@ export function Links() {
                           ${
                             pathname === link.href
                               ? "text-yellow-500 dark:text-yellow-400 px-3 py-2 rounded-md text-sm font-bold"
-                              : "duration-300 text-slate-700  dark:text-gray-50 px-3 py-2 rounded-md text-sm font-bold"
+                              : "text-slate-700 duration-300  dark:text-gray-50 px-3 py-2 rounded-md text-sm font-bold"
                           }`}
                           href={link.href}
                         >
