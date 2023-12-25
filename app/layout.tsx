@@ -30,8 +30,8 @@ export default function RootLayout({
           </div>
           <Footer />
           {/* <CookieBanner /> */}
-          <Analytics />
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
