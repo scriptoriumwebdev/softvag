@@ -27,10 +27,10 @@ export default function RootLayout({
           <Links />
           <div className="min-h-screen flex-grow w-full mx-auto bg-gray-100 dark:bg-zinc-900">
             {children}
-            <Analytics />
           </div>
           <Footer />
           {/* <CookieBanner /> */}
+          <Analytics />
         </Providers>
       </body>
     </html>
