@@ -1,5 +1,4 @@
 import Image from "next/image";
-import type { Metadata } from "next";
 import Main from "./components/main";
 import { Hero } from "./components/hero";
 import Link from "next/link";

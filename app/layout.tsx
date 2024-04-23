@@ -4,7 +4,6 @@ import "./globals.css";
 import { Links } from "./components/links";
 import { Footer } from "./components/footer";
 import { Providers } from "./providers";
-import Main from "./components/main";
 // import CookieBanner from "./components/cookiebanner";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";

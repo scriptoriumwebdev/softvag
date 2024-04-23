@@ -3,13 +3,25 @@ const nextConfig = {
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'mdx'],
     experimental: {
-		typedRoutes: true,
 		mdxRs: true,
 	  },
     compress: true,
     optimizeFonts: true,
     images: {
-      domains: [`dynamic-media-cdn.tripadvisor.com`, `media.graphassets.com`],
+      remotePatterns: [
+        {
+          protocol: "https",
+          hostname: "dynamic-media-cdn.tripadvisor.com", 
+        },
+        {
+          protocol: "https",
+          hostname: "media.graphassets.com", 
+        },
+        {
+          protocol: "http",
+          hostname: "localhost",
+        },
+      ],
       formats: ["image/avif", "image/webp"],
     },
   }
