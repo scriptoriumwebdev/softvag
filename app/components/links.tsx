@@ -70,11 +70,11 @@ export function Links() {
                       <li key={link.name} className="flex items-center">
                         {!link.submenu ? (
                           <Link
-                            className={`group transition duration-300 pt-2
+                            className={`group transition duration-75 pt-2
                           ${
                             pathname === link.href
                               ? "text-yellow-500 dark:text-yellow-400 px-3 py-2 rounded-md text-sm font-bold"
-                              : "text-slate-700 duration-300  dark:text-gray-50 px-3 py-2 rounded-md text-sm font-bold"
+                              : "text-slate-700 duration-75  dark:text-gray-50 px-3 py-2 rounded-md text-sm font-bold"
                           }`}
                             href={link.href}
                           >
@@ -87,17 +87,17 @@ export function Links() {
                                 pathname === link.href
                                   ? "max-w-full"
                                   : "group-hover:max-w-full"
-                              } block max-w-0   transition-all duration-300 h-0.5 bg-slate-700 dark:bg-yellow-400`}
+                              } block max-w-0   transition-all duration-75 h-0.5 bg-slate-700 dark:bg-yellow-400`}
                             ></span>
                           </Link>
                         ) : (
                           <Menu as="div" className="relative">
                             <Menu.Button
-                              className={`group transition duration-300 pt-2
+                              className={`group transition duration-75 pt-2
                                ${
                                  pathname === link.href
                                    ? "text-yellow-500 dark:text-yellow-400 px-3 py-2 rounded-md text-sm font-bold"
-                                   : "text-slate-700 duration-300  dark:text-gray-50 px-3 py-2 rounded-md text-sm font-bold"
+                                   : "text-slate-700 duration-75  dark:text-gray-50 px-3 py-2 rounded-md text-sm font-bold"
                                }`}
                             >
                               <span className="flex items-center">
@@ -108,7 +108,7 @@ export function Links() {
 
                             <Transition
                               as={Fragment}
-                              enter="transition ease-out duration-100"
+                              enter="transition ease-out duration-75"
                               enterFrom="transform opacity-0 scale-95"
                               enterTo="transform opacity-100 scale-100"
                               leave="transition ease-in duration-75"
@@ -125,7 +125,7 @@ export function Links() {
                                           ${
                                             pathname === item.href
                                               ? "text-yellow-500 dark:text-yellow-400"
-                                              : "text-slate-700 duration-300  dark:text-gray-50"
+                                              : "text-slate-700 duration-75  dark:text-gray-50"
                                           }`}
                                       >
                                         {item.name}
@@ -134,7 +134,7 @@ export function Links() {
                                             pathname === item.href
                                               ? "max-w-full"
                                               : "group-hover:max-w-full"
-                                          } block max-w-0  z-20 transition-all duration-300 h-0.5 bg-slate-700 dark:bg-yellow-400`}
+                                          } block max-w-0  z-20 transition-all duration-75 h-0.5 bg-slate-700 dark:bg-yellow-400`}
                                         ></span>
                                       </Link>
                                     </Menu.Item>
@@ -189,7 +189,7 @@ export function Links() {
 
       <div className="md:hidden">
         <div
-          className={`duration-500  ${
+          className={`duration-300  ${
             isOpen ? "mt-0 " : "-mt-80 overflow-hidden"
           } px-2 py-4 pb-3 space-y-1 sm:px-3 text-center shadow-md`}
         >
@@ -212,11 +212,11 @@ export function Links() {
                   ) : (
                     <Menu as="div" className="relative">
                       <Menu.Button
-                        className={`group transition duration-300 pt-2 
+                        className={`group transition duration-75 pt-2 
                        ${
                          pathname === link.href
                            ? "text-yellow-500 dark:text-yellow-400 px-3 py-2 rounded-md text-base font-bold"
-                           : "text-slate-700 duration-300  dark:text-gray-50 px-3 py-2 rounded-md text-base font-bold"
+                           : "text-slate-700 duration-75  dark:text-gray-50 px-3 py-2 rounded-md text-base font-bold"
                        }`}
                       >
                         <span className="flex items-center ">
@@ -227,7 +227,7 @@ export function Links() {
 
                       <Transition
                         as={Fragment}
-                        enter="transition ease-out duration-100"
+                        enter="transition ease-out duration-75"
                         enterFrom="transform opacity-0 scale-95"
                         enterTo="transform opacity-100 scale-100"
                         leave="transition ease-in duration-75"
