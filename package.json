@@ -10,6 +10,7 @@
     "export": "next export"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.18",
     "@vercel/analytics": "^1.1.1",
     "@vercel/speed-insights": "^1.0.2",
     "cookies-next": "^3.0.0",

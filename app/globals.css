@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  scroll-behavior: smooth;
+}
+
 /* @layer base {
   body {
     @apply dark:bg-gray-800 bg-white;

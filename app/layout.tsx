@@ -26,7 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Links />
-          <div className="min-h-screen flex-grow w-full mx-auto bg-gray-100 dark:bg-zinc-900">
+          <div className="min-h-screen flex-grow mx-auto bg-gray-100 dark:bg-zinc-900">
             {children}
           </div>
           <Footer />

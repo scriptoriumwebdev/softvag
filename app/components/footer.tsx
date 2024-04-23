@@ -5,110 +5,64 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 
+export interface Link {
+  id: string;
+  href: string;
+  name: string;
+}
+const links: Link[] = [
+  {
+    id: "1",
+    href: "",
+    name: "Strona Główna",
+  },
+  {
+    id: "2",
+    href: "o-firmie",
+    name: "O Firmie",
+  },
+  {
+    id: "3",
+    href: "modyfikacje-oprogramowania-skrzyn-biegow-DSG-i-S-Tronic",
+    name: "Modyfikacje skrzyń DSG i\u00A0S\u00A0Tronic",
+  },
+  {
+    id: "4",
+    href: "kodowania-i-adaptacje-funkcjonalnosci-samochodu",
+    name: "Kodowania i\u00A0adaptacje",
+  },
+  {
+    id: "5",
+    href: "pytania-i-odpowiedzi",
+    name: "Pytania i\u00A0odpowiedzi",
+  },
+  {
+    id: "6",
+    href: "opinie",
+    name: "Opinie",
+  },
+  {
+    id: "7",
+    href: "kontakt",
+    name: "Kontakt",
+  },
+];
 export function Footer() {
   const [isOpen, setOpen] = useState(false);
-
   return (
-    // <footer className="bg-gray-50 dark:bg-zinc-900 dark:border-t-2 dark:border-gray-500">
-    //   <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
-    //     <Link href="/" className="flex justify-center">
-    //       {" "}
-    //       <Image
-    //         className="h-16 hidden dark:block"
-    //         src="/logoDark.svg"
-    //         alt="SoftVAG Logo"
-    //         width="300"
-    //         height="60"
-    //       />
-    //       <Image
-    //         className="h-16  block dark:hidden"
-    //         src="logo.svg"
-    //         alt="SoftVAG Logo"
-    //         width="300"
-    //         height="60"
-    //       />
-    //     </Link>
-
-    //     <p className="mx-auto mt-6 max-w-md text-center leading-relaxed">
-    //       Modyfikacje charakterystyki pracy automatycznych skrzyń biegów DSG
-    //       i&nbsp;S Tronic, kodowania i&nbsp;adaptacje.
-    //     </p>
-
-    //     <p className="mx-auto mt-2 max-w-md text-center leading-relaxed">
-    //       ul. Siemaszki 37/G6 <br /> 31-207 Kraków
-    //     </p>
-
-    //     <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
-    //       <li>
-    //         <Link
-    //           className="group transition duration-300 hover:font-bold"
-    //           href="/kontakt"
-    //         >
-    //           {" "}
-    //           Kontakt{" "}
-    //           <span className="block max-w-0 group-hover:max-w-full  transition-all duration-500 h-0.5 bg-slate-700 dark:bg-white"></span>
-    //         </Link>
-    //       </li>
-    //     </ul>
-
-    //     <ul className="mt-12 flex justify-center gap-6 md:gap-8">
-    //       <li>
-    //         <Link
-    //           href="https://www.facebook.com/softvag"
-    //           rel="noreferrer nofollow"
-    //           target="_blank"
-    //           title="Facebook"
-    //         >
-    //           <span className="sr-only">Facebook</span>
-    //           <FaFacebook className="h-6 w-6 duration-300 hover:scale-110" />
-    //         </Link>
-    //       </li>
-
-    //       <li>
-    //         <Link
-    //           href="https://www.youtube.com/@softVAG"
-    //           rel="noreferrer nofollow"
-    //           target="_blank"
-    //           title="YouTube"
-    //         >
-    //           <span className="sr-only">Instagram</span>
-    //           <FaYoutube className="h-6 w-6 duration-300 hover:scale-110" />
-    //         </Link>
-    //       </li>
-    //     </ul>
-    //   </div>
-    //   <div className="pb-4">
-    //     <p className="text-center text-xs/relaxed text-gray-700 dark:text-gray-300">
-    //       © SoftVAG 2023. Designed & Coded by{" "}
-    //       <Link
-    //         href="https://scriptorium.dev"
-    //         rel="noreferrer nofollow"
-    //         target="_blank"
-    //         className="underline"
-    //       >
-    //         Scriptorium
-    //       </Link>
-    //       <br />
-    //       <Link href="/polityka-prywatnosci" className="underline">
-    //         <span className="sr-only">Polityka Prywatności</span>
-    //         Polityka Prywatności
-    //       </Link>
-    //     </p>
-    //   </div>
-    // </footer>
     <footer className="lg:grid lg:grid-cols-5">
       <div className="relative h-32 lg:col-span-2 lg:h-full flex items-center justify-center">
         <Image
           className="h-16 hidden dark:block"
           src="/logoDark.svg"
-          alt="SoftVAG Logo"
+          alt="softVAG Logo"
           width="300"
           height="60"
         />
         <Image
           className="h-16  block dark:hidden"
           src="logo.svg"
-          alt="SoftVAG Logo"
+          alt="softVAG Logo"
           width="300"
           height="60"
         />
@@ -201,48 +155,22 @@ export function Footer() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {/* <div>
-              <p className="font-medium text-gray-900 dark:text-neutral-100">
-                Usługi
-              </p>
-
-              <ul className="mt-6 space-y-4 text-sm">
-                <li>
-                  <Link
-                    href="#"
-                    className="text-gray-700 dark:text-neutral-200 transition hover:opacity-75"
-                  >
-                    {" "}
-                    XYZ{" "}
-                  </Link>
-                </li>
-              </ul>
-            </div> */}
-
             <div>
               <p className="font-medium text-gray-900 dark:text-neutral-100">
                 SoftVAG
               </p>
 
               <ul className="mt-6 space-y-4 text-sm">
-                {/* <li>
-                  <Link
-                    href="#"
-                    className="text-gray-700 dark:text-neutral-200 transition hover:opacity-75"
-                  >
-                    {" "}
-                    O Firmie{" "}
-                  </Link>
-                </li> */}
-                <li>
-                  <Link
-                    href="/kontakt"
-                    className="text-gray-700 dark:text-neutral-200 transition hover:opacity-75"
-                  >
-                    {" "}
-                    Kontakt{" "}
-                  </Link>
-                </li>
+                {links.map((link) => (
+                  <li key={link.id}>
+                    <Link
+                      href={`/${link.href}`}
+                      className="text-gray-700 dark:text-neutral-200 transition hover:opacity-75"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>

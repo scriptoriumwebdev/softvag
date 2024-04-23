@@ -8,34 +8,55 @@ import { RiMoonClearFill } from "react-icons/ri";
 import { Divide as Hamburger } from "hamburger-react";
 import { useTheme } from "next-themes";
 import { useState } from "react";
+import { FaCaretDown } from "react-icons/fa";
+import { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
+
 export function Links() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const navLinks = [
     { name: "Strona Główna", href: "/" },
+    { name: "O Firmie", href: "/o-firmie" },
+    {
+      name: "Oferta",
+      href: "/#",
+      submenu: [
+        {
+          name: "Modyfikacje skrzyń DSG i S Tronic",
+          href: "/modyfikacje-oprogramowania-skrzyn-biegow-DSG-i-S-Tronic",
+        },
+        {
+          name: "Kodowania i adaptacje",
+          href: "/kodowania-i-adaptacje-funkcjonalnosci-samochodu",
+        },
+      ],
+    },
+    { name: "Pytania i odpowiedzi", href: "/pytania-i-odpowiedzi" },
+    { name: "Opinie", href: "/opinie" },
     { name: "Kontakt", href: "/kontakt" },
   ];
 
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <nav className="fixed w-full bg-gray-50 dark:bg-zinc-900 shadow-lg z-10 ">
+    <nav className="fixed w-screen bg-gray-50 dark:bg-zinc-900 shadow-lg z-10 ">
       <div className="px-8 mx-auto max-w-7xl bg-gray-50 dark:bg-zinc-900  relative z-1">
         <div className="flex items-center justify-between h-16">
-          <div className="w-full justify-between flex items-center">
+          <div className="w-screen justify-between flex items-center">
             <Link className="flex-shrink-0" href="/">
               <div>
                 <Image
                   className="h-8 hidden dark:block"
                   src="/logoDark.svg"
-                  alt="SoftVAG Logo"
+                  alt="softVAG Logo"
                   width="150"
                   height="30"
                 />
                 <Image
                   className="h-8 block dark:hidden"
                   src="logo.svg"
-                  alt="SoftVAG Logo"
+                  alt="softVAG Logo"
                   width="150"
                   height="30"
                 />
@@ -47,24 +68,82 @@ export function Links() {
                   {navLinks.map((link) => {
                     return (
                       <li key={link.name} className="flex items-center">
-                        <Link
-                          className={`group transition duration-300 pt-2
+                        {!link.submenu ? (
+                          <Link
+                            className={`group transition duration-300 pt-2
                           ${
                             pathname === link.href
                               ? "text-yellow-500 dark:text-yellow-400 px-3 py-2 rounded-md text-sm font-bold"
                               : "text-slate-700 duration-300  dark:text-gray-50 px-3 py-2 rounded-md text-sm font-bold"
                           }`}
-                          href={link.href}
-                        >
-                          {link.name}
-                          <span
-                            className={`  ${
-                              pathname === link.href
-                                ? "max-w-full"
-                                : "group-hover:max-w-full"
-                            } block max-w-0   transition-all duration-500 h-0.5 bg-slate-700 dark:bg-yellow-400`}
-                          ></span>
-                        </Link>
+                            href={link.href}
+                          >
+                            <span className="flex items-center">
+                              {link.name}
+                            </span>
+
+                            <span
+                              className={`  ${
+                                pathname === link.href
+                                  ? "max-w-full"
+                                  : "group-hover:max-w-full"
+                              } block max-w-0   transition-all duration-300 h-0.5 bg-slate-700 dark:bg-yellow-400`}
+                            ></span>
+                          </Link>
+                        ) : (
+                          <Menu as="div" className="relative">
+                            <Menu.Button
+                              className={`group transition duration-300 pt-2
+                               ${
+                                 pathname === link.href
+                                   ? "text-yellow-500 dark:text-yellow-400 px-3 py-2 rounded-md text-sm font-bold"
+                                   : "text-slate-700 duration-300  dark:text-gray-50 px-3 py-2 rounded-md text-sm font-bold"
+                               }`}
+                            >
+                              <span className="flex items-center">
+                                {link.name}
+                                <FaCaretDown className="h-4 w-4" />
+                              </span>
+                            </Menu.Button>
+
+                            <Transition
+                              as={Fragment}
+                              enter="transition ease-out duration-100"
+                              enterFrom="transform opacity-0 scale-95"
+                              enterTo="transform opacity-100 scale-100"
+                              leave="transition ease-in duration-75"
+                              leaveFrom="transform opacity-100 scale-100"
+                              leaveTo="transform opacity-0 scale-95"
+                            >
+                              <Menu.Items className="absolute left-1/2 z-10 mt-3 flex w-screen max-w-min -translate-x-1/2 px-4">
+                                <div className="w-72 shrink rounded-md bg-gray-100 dark:bg-zinc-800 p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5 text-justify">
+                                  {link.submenu.map((item) => (
+                                    <Menu.Item key={item.name}>
+                                      <Link
+                                        href={item.href}
+                                        className={`block p-2 group
+                                          ${
+                                            pathname === item.href
+                                              ? "text-yellow-500 dark:text-yellow-400"
+                                              : "text-slate-700 duration-300  dark:text-gray-50"
+                                          }`}
+                                      >
+                                        {item.name}
+                                        <span
+                                          className={`  ${
+                                            pathname === item.href
+                                              ? "max-w-full"
+                                              : "group-hover:max-w-full"
+                                          } block max-w-0  z-20 transition-all duration-300 h-0.5 bg-slate-700 dark:bg-yellow-400`}
+                                        ></span>
+                                      </Link>
+                                    </Menu.Item>
+                                  ))}
+                                </div>
+                              </Menu.Items>
+                            </Transition>
+                          </Menu>
+                        )}
                       </li>
                     );
                   })}
@@ -118,17 +197,65 @@ export function Links() {
             {navLinks.map((link) => {
               return (
                 <li key={link.name}>
-                  <Link
-                    onClick={() => setOpen(false)}
-                    className={
-                      pathname === link.href
-                        ? "text-amber-500 dark:text-yellow-400 hover:text-yellow-400  dark:hover:text-yellow-300 px-3 py-2 rounded-md text-base font-medium block "
-                        : "text-slate-700  dark:text-gray-50  hover:text-yellow-400 dark:hover:text-yellow-300 px-3 py-2 rounded-md text-base font-bold block"
-                    }
-                    href={link.href}
-                  >
-                    {link.name}
-                  </Link>
+                  {!link.submenu ? (
+                    <Link
+                      onClick={() => setOpen(false)}
+                      className={
+                        pathname === link.href
+                          ? "text-amber-500 dark:text-yellow-400 hover:text-yellow-400  dark:hover:text-yellow-300 px-3 py-2 rounded-md text-base font-medium block "
+                          : "text-slate-700  dark:text-gray-50  hover:text-yellow-400 dark:hover:text-yellow-300 px-3 py-2 rounded-md text-base font-bold block"
+                      }
+                      href={link.href}
+                    >
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <Menu as="div" className="relative">
+                      <Menu.Button
+                        className={`group transition duration-300 pt-2 
+                       ${
+                         pathname === link.href
+                           ? "text-yellow-500 dark:text-yellow-400 px-3 py-2 rounded-md text-base font-bold"
+                           : "text-slate-700 duration-300  dark:text-gray-50 px-3 py-2 rounded-md text-base font-bold"
+                       }`}
+                      >
+                        <span className="flex items-center ">
+                          {link.name}
+                          <FaCaretDown className="h-4 w-4" />
+                        </span>
+                      </Menu.Button>
+
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Menu.Items className="w-full z-10 mt-2 flex px-4 items-center justify-center">
+                          <div className="text-gray-900 ring-gray-900/5 w-40 flex items-center flex-col">
+                            {link.submenu.map((item) => (
+                              <Menu.Item key={item.name}>
+                                <Link
+                                  onClick={() => setOpen(false)}
+                                  href={item.href}
+                                  className={
+                                    pathname === link.href
+                                      ? "text-amber-500 dark:text-yellow-400 hover:text-yellow-400  dark:hover:text-yellow-300 px-3 py-2 rounded-md text-sm font-medium block "
+                                      : "text-slate-700  dark:text-gray-50  hover:text-yellow-400 dark:hover:text-yellow-300 px-3 py-2 rounded-md text-sm font-bold block"
+                                  }
+                                >
+                                  {item.name}
+                                </Link>
+                              </Menu.Item>
+                            ))}
+                          </div>
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
+                  )}
                 </li>
               );
             })}
