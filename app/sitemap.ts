@@ -10,7 +10,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: "https://www.softvag.com/kontakt",
       lastModified: new Date(),
-      priority: 0.8,
+      priority: 1,
+    },
+    {
+      url: "https://www.softvag.com/modyfikacje-oprogramowania-skrzyn-biegow-DSG-i-S-Tronic",
+      lastModified: new Date(),
+      priority: 1,
     },
   ];
 }
