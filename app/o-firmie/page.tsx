@@ -2,12 +2,17 @@ import Link from "next/link";
 import Main from "../components/main";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { ExecuteGraphql } from "@/api/graphQLApi";
+import { PagesGetListDocument } from "@/gql/graphql";
 
 export const metadata: Metadata = {
   title: "O Firmie",
 };
 
-export default function About() {
+export default async function About() {
+  const data = await ExecuteGraphql(PagesGetListDocument, {});
+  console.log(data.pages?.data);
+
   return (
     <Main>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">

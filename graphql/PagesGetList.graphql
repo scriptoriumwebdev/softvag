@@ -1,0 +1,10 @@
+query PagesGetList {
+  pages {
+    data {
+      id
+      attributes {
+        Title
+      }
+    }
+  }
+}

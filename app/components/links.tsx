@@ -11,6 +11,7 @@ import { useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import Banner from "./banner";
 
 export function Links() {
   const pathname = usePathname();
@@ -276,6 +277,7 @@ export function Links() {
           </ul>
         </div>
       </div>
+      <Banner />
     </nav>
   );
 }
