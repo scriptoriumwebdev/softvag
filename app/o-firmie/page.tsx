@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 };
 
 export default async function About() {
-  const data = await ExecuteGraphql(PagesGetListDocument, {});
-  console.log(data.pages?.data);
+  // const data = await ExecuteGraphql(PagesGetListDocument, {});
+  // console.log(data.pages?.data);
 
   return (
     <Main>
