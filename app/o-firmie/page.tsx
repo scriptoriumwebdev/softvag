@@ -7,6 +7,8 @@ import { PagesGetListDocument } from "@/gql/graphql";
 
 export const metadata: Metadata = {
   title: "O Firmie",
+  description:
+    "Poznaj naszą firmę, która specjalizuje się w profesjonalnych modyfikacjach automatycznych skrzyń biegów DSG i S Tronic. Zaufaj naszemu doświadczeniu i pasji do motoryzacji.",
 };
 
 export default async function About() {

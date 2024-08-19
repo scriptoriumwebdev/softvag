@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Opinie",
+  description:
+    "Sprawdź opinie naszych klientów, którzy skorzystali z modyfikacji skrzyń biegów DSG i S Tronic i doświadczyli poprawy w osiągach i komfortu jazdy.",
 };
 
 export default function About() {

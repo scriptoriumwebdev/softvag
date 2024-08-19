@@ -6,7 +6,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   description:
-    "Modyfikacje charakterystyki pracy automatycznych skrzyń biegów DSG i S Tronic",
+    "Profesjonalne modyfikacje charakterystyki pracy automatycznych skrzyń biegów DSG i S Tronic dla poprawy osiągów, płynności zmiany biegów i komfortu jazdy.",
 };
 
 export default function Home() {

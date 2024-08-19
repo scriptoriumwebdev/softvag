@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Pytania i odpowiedzi",
+  description:
+    "Znajdź odpowiedzi na najczęściej zadawane pytania dotyczące modyfikacji skrzyń biegów DSG i S Tronic oraz usług, które oferujemy.",
 };
 
 export default function About() {

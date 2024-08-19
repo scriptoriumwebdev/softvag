@@ -12,6 +12,8 @@ import {
 
 export const metadata: Metadata = {
   title: "Kontakt",
+  description:
+    "Skontaktuj się z nami, aby dowiedzieć się więcej o naszych usługach i umówić się na modyfikację skrzyń biegów DSG i S Tronic.",
 };
 
 export default function About() {
