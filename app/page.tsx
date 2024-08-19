@@ -2,6 +2,12 @@ import Image from "next/image";
 import Main from "./components/main";
 import { Hero } from "./components/hero";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  description:
+    "Modyfikacje charakterystyki pracy automatycznych skrzyń biegów DSG i S Tronic",
+};
 
 export default function Home() {
   return (
