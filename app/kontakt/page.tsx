@@ -11,7 +11,8 @@ import {
 } from "react-icons/fa";
 
 export const metadata: Metadata = {
-  title: "Kontakt",
+  title:
+    "Kontakt w sprawie modyfikacji oprogramowania sterowników automatycznych skrzyń biegów DSG, S Tronic",
   description:
     "Skontaktuj się z nami, aby dowiedzieć się więcej o naszych usługach i umówić się na modyfikację skrzyń biegów DSG i S Tronic.",
 };

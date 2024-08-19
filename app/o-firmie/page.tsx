@@ -3,7 +3,6 @@ import Main from "../components/main";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { ExecuteGraphql } from "@/api/graphQLApi";
-import { PagesGetListDocument } from "@/gql/graphql";
 
 export const metadata: Metadata = {
   title: "O Firmie",

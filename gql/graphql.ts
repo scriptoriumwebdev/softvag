@@ -1,5 +1,4 @@
 /* eslint-disable */
-import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -20,6 +19,51 @@ export type Scalars = {
   JSON: { input: unknown; output: unknown; }
   /** The `Upload` scalar type represents a file upload. */
   Upload: { input: unknown; output: unknown; }
+};
+
+export type Blog = {
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  image?: Maybe<UploadFileEntityResponse>;
+  name?: Maybe<Scalars['String']['output']>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type BlogEntity = {
+  attributes?: Maybe<Blog>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type BlogEntityResponse = {
+  data?: Maybe<BlogEntity>;
+};
+
+export type BlogEntityResponseCollection = {
+  data: Array<BlogEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type BlogFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<BlogFiltersInput>>>;
+  content?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<BlogFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<BlogFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type BlogInput = {
+  content?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type BooleanFilterInput = {
@@ -112,7 +156,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph = I18NLocale | Page | TranslateBatchTranslateJob | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Blog | I18NLocale | TranslateBatchTranslateJob | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type I18NLocale = {
   code?: Maybe<Scalars['String']['output']>;
@@ -224,7 +268,7 @@ export type JsonFilterInput = {
 export type Mutation = {
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
-  createPage?: Maybe<PageEntityResponse>;
+  createBlog?: Maybe<BlogEntityResponse>;
   createTranslateBatchTranslateJob?: Maybe<TranslateBatchTranslateJobEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   createUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -232,7 +276,7 @@ export type Mutation = {
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
-  deletePage?: Maybe<PageEntityResponse>;
+  deleteBlog?: Maybe<BlogEntityResponse>;
   deleteTranslateBatchTranslateJob?: Maybe<TranslateBatchTranslateJobEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -251,8 +295,8 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
+  updateBlog?: Maybe<BlogEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
-  updatePage?: Maybe<PageEntityResponse>;
   updateTranslateBatchTranslateJob?: Maybe<TranslateBatchTranslateJobEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -271,8 +315,8 @@ export type MutationChangePasswordArgs = {
 };
 
 
-export type MutationCreatePageArgs = {
-  data: PageInput;
+export type MutationCreateBlogArgs = {
+  data: BlogInput;
 };
 
 
@@ -301,7 +345,7 @@ export type MutationCreateUsersPermissionsUserArgs = {
 };
 
 
-export type MutationDeletePageArgs = {
+export type MutationDeleteBlogArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -371,15 +415,15 @@ export type MutationResetPasswordArgs = {
 };
 
 
-export type MutationUpdateFileInfoArgs = {
+export type MutationUpdateBlogArgs = {
+  data: BlogInput;
   id: Scalars['ID']['input'];
-  info?: InputMaybe<FileInfoInput>;
 };
 
 
-export type MutationUpdatePageArgs = {
-  data: PageInput;
+export type MutationUpdateFileInfoArgs = {
   id: Scalars['ID']['input'];
+  info?: InputMaybe<FileInfoInput>;
 };
 
 
@@ -421,46 +465,6 @@ export type MutationUploadArgs = {
   refId?: InputMaybe<Scalars['ID']['input']>;
 };
 
-export type Page = {
-  Contents: Scalars['String']['output'];
-  Title: Scalars['String']['output'];
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type PageEntity = {
-  attributes?: Maybe<Page>;
-  id?: Maybe<Scalars['ID']['output']>;
-};
-
-export type PageEntityResponse = {
-  data?: Maybe<PageEntity>;
-};
-
-export type PageEntityResponseCollection = {
-  data: Array<PageEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type PageFiltersInput = {
-  Contents?: InputMaybe<StringFilterInput>;
-  Title?: InputMaybe<StringFilterInput>;
-  and?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  not?: InputMaybe<PageFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type PageInput = {
-  Contents?: InputMaybe<Scalars['String']['input']>;
-  Title?: InputMaybe<Scalars['String']['input']>;
-  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
 export type Pagination = {
   page: Scalars['Int']['output'];
   pageCount: Scalars['Int']['output'];
@@ -480,11 +484,11 @@ export type PublicationState =
   | 'PREVIEW';
 
 export type Query = {
+  blog?: Maybe<BlogEntityResponse>;
+  blogs?: Maybe<BlogEntityResponseCollection>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   me?: Maybe<UsersPermissionsMe>;
-  page?: Maybe<PageEntityResponse>;
-  pages?: Maybe<PageEntityResponseCollection>;
   translateBatchTranslateJob?: Maybe<TranslateBatchTranslateJobEntityResponse>;
   translateBatchTranslateJobs?: Maybe<TranslateBatchTranslateJobEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
@@ -498,6 +502,19 @@ export type Query = {
 };
 
 
+export type QueryBlogArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryBlogsArgs = {
+  filters?: InputMaybe<BlogFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
 export type QueryI18NLocaleArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
@@ -506,19 +523,6 @@ export type QueryI18NLocaleArgs = {
 export type QueryI18NLocalesArgs = {
   filters?: InputMaybe<I18NLocaleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type QueryPageArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type QueryPagesArgs = {
-  filters?: InputMaybe<PageFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
@@ -1010,11 +1014,6 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
-export type PagesGetListQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type PagesGetListQuery = { pages?: { data: Array<{ id?: string | null, attributes?: { Title: string } | null }> } | null };
-
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -1029,16 +1028,3 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
-
-export const PagesGetListDocument = new TypedDocumentString(`
-    query PagesGetList {
-  pages {
-    data {
-      id
-      attributes {
-        Title
-      }
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<PagesGetListQuery, PagesGetListQueryVariables>;

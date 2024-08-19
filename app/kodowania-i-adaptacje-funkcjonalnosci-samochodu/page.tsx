@@ -2,7 +2,7 @@ import Main from "../components/main";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kodowania i adaptacje funkcjonalnosci samochodu",
+  title: "Kodowanie, adaptacje funkcjonalności samochodu",
 };
 
 export default function About() {
