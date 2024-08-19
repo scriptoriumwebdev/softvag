@@ -40,11 +40,20 @@ export interface OfferFeature {
   title?: string;
 }
 
-export const metadata: Metadata = {
+const meta = {
   title:
     "Modyfikacja oprogramowania sterowników automatycznych skrzyń biegów DSG, S Tronic",
   description:
     "Zoptymalizuj działanie skrzyń biegów DSG i S Tronic dzięki naszym modyfikacjom oprogramowania, które poprawiają osiągi, płynność zmiany biegów i komfort jazdy.",
+};
+
+export const metadata: Metadata = {
+  title: meta.title,
+  description: meta.description,
+  openGraph: {
+    title: meta.title,
+    description: meta.description,
+  },
 };
 
 const pageData: Pricing = {

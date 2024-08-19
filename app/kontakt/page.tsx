@@ -10,11 +10,20 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 
-export const metadata: Metadata = {
+const meta = {
   title:
     "Kontakt w sprawie modyfikacji oprogramowania sterowników automatycznych skrzyń biegów DSG, S Tronic",
   description:
     "Skontaktuj się z nami, aby dowiedzieć się więcej o naszych usługach i umówić się na modyfikację skrzyń biegów DSG i S Tronic.",
+};
+
+export const metadata: Metadata = {
+  title: meta.title,
+  description: meta.description,
+  openGraph: {
+    title: meta.title,
+    description: meta.description,
+  },
 };
 
 export default function About() {

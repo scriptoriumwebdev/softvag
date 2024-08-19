@@ -4,6 +4,19 @@ import type { Metadata } from "next";
 import Main from "../components/main";
 import Link from "next/link";
 
+const meta = {
+  title: "Polityka prywatności",
+  description: "Polityka prywatności firmy softVAG",
+};
+export const metadata: Metadata = {
+  title: meta.title,
+  description: meta.description,
+  openGraph: {
+    title: meta.title,
+    description: meta.description,
+  },
+};
+
 export default function Privacy() {
   return (
     <Main>

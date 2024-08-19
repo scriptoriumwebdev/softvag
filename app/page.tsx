@@ -4,10 +4,18 @@ import { Hero } from "./components/hero";
 import Link from "next/link";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
+const meta = {
   title: "Modyfikacje automatycznych skrzyń biegów DSG i S Tronic, Chiptuning",
   description:
     "Profesjonalne modyfikacje charakterystyki pracy automatycznych skrzyń biegów DSG i S Tronic dla poprawy osiągów, płynności zmiany biegów i komfortu jazdy.",
+};
+export const metadata: Metadata = {
+  title: meta.title,
+  description: meta.description,
+  openGraph: {
+    title: meta.title,
+    description: meta.description,
+  },
 };
 
 export default function Home() {

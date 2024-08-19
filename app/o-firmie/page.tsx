@@ -4,10 +4,19 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { ExecuteGraphql } from "@/api/graphQLApi";
 
-export const metadata: Metadata = {
+const meta = {
   title: "O Firmie",
   description:
     "Poznaj naszą firmę, która specjalizuje się w profesjonalnych modyfikacjach automatycznych skrzyń biegów DSG i S Tronic. Zaufaj naszemu doświadczeniu i pasji do motoryzacji.",
+};
+
+export const metadata: Metadata = {
+  title: meta.title,
+  description: meta.description,
+  openGraph: {
+    title: meta.title,
+    description: meta.description,
+  },
 };
 
 export default async function About() {

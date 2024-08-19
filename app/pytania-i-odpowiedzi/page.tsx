@@ -1,10 +1,19 @@
 import Main from "../components/main";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
+const meta = {
   title: "Pytania i odpowiedzi",
   description:
     "Znajdź odpowiedzi na najczęściej zadawane pytania dotyczące modyfikacji skrzyń biegów DSG i S Tronic oraz usług, które oferujemy.",
+};
+
+export const metadata: Metadata = {
+  title: meta.title,
+  description: meta.description,
+  openGraph: {
+    title: meta.title,
+    description: meta.description,
+  },
 };
 
 export default function About() {
