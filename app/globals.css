@@ -34,3 +34,13 @@ body {
     )
     rgb(var(--background-start-rgb));
 } */
+
+/* a {
+  color: rgb(79 70 229);
+  line-height: 1.75rem;
+  font-weight: 600;
+  opacity: 100%;
+}
+a:hover {
+  opacity: 75%;
+} */

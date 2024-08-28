@@ -26,6 +26,9 @@ dependencies:
   '@parcel/watcher':
     specifier: ^2.4.1
     version: 2.4.1
+  '@strapi/blocks-react-renderer':
+    specifier: ^1.0.1
+    version: 1.0.1(react-dom@18.3.1)(react@18.3.1)
   '@types/mdx':
     specifier: ^2.0.13
     version: 2.0.13
@@ -1735,6 +1738,16 @@ packages:
   /@sindresorhus/merge-streams@2.3.0:
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
     engines: {node: '>=18'}
+    dev: false
+
+  /@strapi/blocks-react-renderer@1.0.1(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-oHQNYstM/361oJIKrj6wDFZhDWHg8M8sF7SszqWr8zH2EaoL36ccLq7F2XFWShYQshuKgY+V6axurDaxWo4jQA==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
     dev: false
 
   /@swc/counter@0.1.3:

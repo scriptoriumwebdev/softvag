@@ -1,0 +1,59 @@
+query getHomePageData {
+  mainPage {
+    data {
+      id
+      attributes {
+        SEO {
+          Title
+          Description
+        }
+        Blocks {
+          __typename
+          ... on ComponentLayoutHeroSection {
+            id
+            __typename
+            Heading
+            CTA {
+              id
+              Title
+              URL
+
+              isExternal
+            }
+            Image {
+              data {
+                id
+                attributes {
+                  url
+                }
+              }
+            }
+          }
+
+          __typename
+          ... on ComponentLayoutContent {
+            __typename
+
+            id
+            Heading
+            Subheading
+            Content
+          }
+        }
+      }
+    }
+  }
+}
+
+query getHomePageSEOData {
+  mainPage {
+    data {
+      attributes {
+        SEO {
+          Title
+          Description
+        }
+      }
+    }
+  }
+}

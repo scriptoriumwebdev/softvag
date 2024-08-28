@@ -1,6 +1,6 @@
 /* eslint-disable */
 import type { DocumentTypeDecoration } from "@graphql-typed-document-node/core";
-
+import { BlocksContent } from "@strapi/blocks-react-renderer";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -22,22 +22,71 @@ export type Incremental<T> =
       [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never;
     };
 /** All built-in and custom scalars, mapped to their actual values */
-
 export type Scalars = {
   ID: { input: string; output: string };
   String: { input: string; output: string };
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
+  AboutBlocksDynamicZoneInput: { input: unknown; output: unknown };
   /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   DateTime: { input: unknown; output: unknown };
+  FaqPageBlocksDynamicZoneInput: { input: unknown; output: unknown };
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: { input: unknown; output: unknown };
+  MainPageBlocksDynamicZoneInput: { input: unknown; output: unknown };
   /** The `Upload` scalar type represents a file upload. */
   Upload: { input: unknown; output: unknown };
 };
 
+export type About = {
+  Blocks?: Maybe<Array<Maybe<AboutBlocksDynamicZone>>>;
+  SEO?: Maybe<ComponentSeoSeo>;
+  createdAt?: Maybe<Scalars["DateTime"]["output"]>;
+  publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  updatedAt?: Maybe<Scalars["DateTime"]["output"]>;
+};
+
+export type AboutBlocksDynamicZone = ComponentLayoutContent | Error;
+
+export type AboutEntity = {
+  attributes?: Maybe<About>;
+  id?: Maybe<Scalars["ID"]["output"]>;
+};
+
+export type AboutEntityResponse = {
+  data?: Maybe<AboutEntity>;
+};
+
+export type AboutInput = {
+  Blocks?: InputMaybe<Array<Scalars["AboutBlocksDynamicZoneInput"]["input"]>>;
+  SEO?: InputMaybe<ComponentSeoSeoInput>;
+  publishedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+};
+
+export type Announcement = {
+  Text?: Maybe<Scalars["String"]["output"]>;
+  createdAt?: Maybe<Scalars["DateTime"]["output"]>;
+  publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  updatedAt?: Maybe<Scalars["DateTime"]["output"]>;
+};
+
+export type AnnouncementEntity = {
+  attributes?: Maybe<Announcement>;
+  id?: Maybe<Scalars["ID"]["output"]>;
+};
+
+export type AnnouncementEntityResponse = {
+  data?: Maybe<AnnouncementEntity>;
+};
+
+export type AnnouncementInput = {
+  Text?: InputMaybe<Scalars["String"]["input"]>;
+  publishedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+};
+
 export type Blog = {
+  Teaser: Scalars["String"]["output"];
   content?: Maybe<Scalars["String"]["output"]>;
   createdAt?: Maybe<Scalars["DateTime"]["output"]>;
   image?: Maybe<UploadFileEntityResponse>;
@@ -62,6 +111,7 @@ export type BlogEntityResponseCollection = {
 };
 
 export type BlogFiltersInput = {
+  Teaser?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<BlogFiltersInput>>>;
   content?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
@@ -75,6 +125,7 @@ export type BlogFiltersInput = {
 };
 
 export type BlogInput = {
+  Teaser?: InputMaybe<Scalars["String"]["input"]>;
   content?: InputMaybe<Scalars["String"]["input"]>;
   image?: InputMaybe<Scalars["ID"]["input"]>;
   name?: InputMaybe<Scalars["String"]["input"]>;
@@ -105,6 +156,53 @@ export type BooleanFilterInput = {
   null?: InputMaybe<Scalars["Boolean"]["input"]>;
   or?: InputMaybe<Array<InputMaybe<Scalars["Boolean"]["input"]>>>;
   startsWith?: InputMaybe<Scalars["Boolean"]["input"]>;
+};
+
+export type ComponentComponentButton = {
+  Title?: Maybe<Scalars["String"]["output"]>;
+  URL?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["ID"]["output"];
+  isExternal?: Maybe<Scalars["Boolean"]["output"]>;
+};
+
+export type ComponentLayoutContent = {
+  Content?: Maybe<Scalars["JSON"]["output"]>;
+  Heading?: Maybe<Scalars["String"]["output"]>;
+  Subheading?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["ID"]["output"];
+};
+
+export type ComponentLayoutHeroSection = {
+  CTA?: Maybe<ComponentComponentButton>;
+  Heading?: Maybe<Scalars["String"]["output"]>;
+  Image?: Maybe<UploadFileRelationResponseCollection>;
+  id: Scalars["ID"]["output"];
+};
+
+export type ComponentLayoutHeroSectionImageArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+};
+
+export type ComponentSeoSeo = {
+  Description: Scalars["String"]["output"];
+  Title: Scalars["String"]["output"];
+  id: Scalars["ID"]["output"];
+};
+
+export type ComponentSeoSeoFiltersInput = {
+  Description?: InputMaybe<StringFilterInput>;
+  Title?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<ComponentSeoSeoFiltersInput>>>;
+  not?: InputMaybe<ComponentSeoSeoFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentSeoSeoFiltersInput>>>;
+};
+
+export type ComponentSeoSeoInput = {
+  Description?: InputMaybe<Scalars["String"]["input"]>;
+  Title?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["ID"]["input"]>;
 };
 
 export type DateTimeFilterInput = {
@@ -141,6 +239,84 @@ export type Enum_Translatebatchtranslatejob_Status =
   | "running"
   | "setup";
 
+export type Error = {
+  code: Scalars["String"]["output"];
+  message?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type Faq = {
+  Answer?: Maybe<Scalars["String"]["output"]>;
+  Question?: Maybe<Scalars["String"]["output"]>;
+  createdAt?: Maybe<Scalars["DateTime"]["output"]>;
+  publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  updatedAt?: Maybe<Scalars["DateTime"]["output"]>;
+};
+
+export type FaqEntity = {
+  attributes?: Maybe<Faq>;
+  id?: Maybe<Scalars["ID"]["output"]>;
+};
+
+export type FaqEntityResponse = {
+  data?: Maybe<FaqEntity>;
+};
+
+export type FaqEntityResponseCollection = {
+  data: Array<FaqEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type FaqFiltersInput = {
+  Answer?: InputMaybe<StringFilterInput>;
+  Question?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<FaqFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<FaqFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<FaqFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type FaqInput = {
+  Answer?: InputMaybe<Scalars["String"]["input"]>;
+  Question?: InputMaybe<Scalars["String"]["input"]>;
+  publishedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+};
+
+export type FaqPage = {
+  Blocks?: Maybe<Array<Maybe<FaqPageBlocksDynamicZone>>>;
+  SEO?: Maybe<Array<Maybe<ComponentSeoSeo>>>;
+  createdAt?: Maybe<Scalars["DateTime"]["output"]>;
+  faq?: Maybe<FaqEntityResponse>;
+  publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  updatedAt?: Maybe<Scalars["DateTime"]["output"]>;
+};
+
+export type FaqPageSeoArgs = {
+  filters?: InputMaybe<ComponentSeoSeoFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+};
+
+export type FaqPageBlocksDynamicZone = ComponentLayoutContent | Error;
+
+export type FaqPageEntity = {
+  attributes?: Maybe<FaqPage>;
+  id?: Maybe<Scalars["ID"]["output"]>;
+};
+
+export type FaqPageEntityResponse = {
+  data?: Maybe<FaqPageEntity>;
+};
+
+export type FaqPageInput = {
+  Blocks?: InputMaybe<Array<Scalars["FaqPageBlocksDynamicZoneInput"]["input"]>>;
+  SEO?: InputMaybe<Array<InputMaybe<ComponentSeoSeoInput>>>;
+  faq?: InputMaybe<Scalars["ID"]["input"]>;
+  publishedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+};
+
 export type FileInfoInput = {
   alternativeText?: InputMaybe<Scalars["String"]["input"]>;
   caption?: InputMaybe<Scalars["String"]["input"]>;
@@ -173,8 +349,17 @@ export type FloatFilterInput = {
 };
 
 export type GenericMorph =
+  | About
+  | Announcement
   | Blog
+  | ComponentComponentButton
+  | ComponentLayoutContent
+  | ComponentLayoutHeroSection
+  | ComponentSeoSeo
+  | Faq
+  | FaqPage
   | I18NLocale
+  | MainPage
   | TranslateBatchTranslateJob
   | UploadFile
   | UploadFolder
@@ -289,10 +474,41 @@ export type JsonFilterInput = {
   startsWith?: InputMaybe<Scalars["JSON"]["input"]>;
 };
 
+export type MainPage = {
+  Blocks?: Maybe<Array<Maybe<MainPageBlocksDynamicZone>>>;
+  SEO?: Maybe<ComponentSeoSeo>;
+  createdAt?: Maybe<Scalars["DateTime"]["output"]>;
+  publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  updatedAt?: Maybe<Scalars["DateTime"]["output"]>;
+};
+
+export type MainPageBlocksDynamicZone =
+  | ComponentLayoutContent
+  | ComponentLayoutHeroSection
+  | Error;
+
+export type MainPageEntity = {
+  attributes?: Maybe<MainPage>;
+  id?: Maybe<Scalars["ID"]["output"]>;
+};
+
+export type MainPageEntityResponse = {
+  data?: Maybe<MainPageEntity>;
+};
+
+export type MainPageInput = {
+  Blocks?: InputMaybe<
+    Array<Scalars["MainPageBlocksDynamicZoneInput"]["input"]>
+  >;
+  SEO?: InputMaybe<ComponentSeoSeoInput>;
+  publishedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+};
+
 export type Mutation = {
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
   createBlog?: Maybe<BlogEntityResponse>;
+  createFaq?: Maybe<FaqEntityResponse>;
   createTranslateBatchTranslateJob?: Maybe<TranslateBatchTranslateJobEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   createUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -300,7 +516,12 @@ export type Mutation = {
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  deleteAbout?: Maybe<AboutEntityResponse>;
+  deleteAnnouncement?: Maybe<AnnouncementEntityResponse>;
   deleteBlog?: Maybe<BlogEntityResponse>;
+  deleteFaq?: Maybe<FaqEntityResponse>;
+  deleteFaqPage?: Maybe<FaqPageEntityResponse>;
+  deleteMainPage?: Maybe<MainPageEntityResponse>;
   deleteTranslateBatchTranslateJob?: Maybe<TranslateBatchTranslateJobEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -319,8 +540,13 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
+  updateAbout?: Maybe<AboutEntityResponse>;
+  updateAnnouncement?: Maybe<AnnouncementEntityResponse>;
   updateBlog?: Maybe<BlogEntityResponse>;
+  updateFaq?: Maybe<FaqEntityResponse>;
+  updateFaqPage?: Maybe<FaqPageEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
+  updateMainPage?: Maybe<MainPageEntityResponse>;
   updateTranslateBatchTranslateJob?: Maybe<TranslateBatchTranslateJobEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -339,6 +565,10 @@ export type MutationChangePasswordArgs = {
 
 export type MutationCreateBlogArgs = {
   data: BlogInput;
+};
+
+export type MutationCreateFaqArgs = {
+  data: FaqInput;
 };
 
 export type MutationCreateTranslateBatchTranslateJobArgs = {
@@ -362,6 +592,10 @@ export type MutationCreateUsersPermissionsUserArgs = {
 };
 
 export type MutationDeleteBlogArgs = {
+  id: Scalars["ID"]["input"];
+};
+
+export type MutationDeleteFaqArgs = {
   id: Scalars["ID"]["input"];
 };
 
@@ -418,14 +652,35 @@ export type MutationResetPasswordArgs = {
   passwordConfirmation: Scalars["String"]["input"];
 };
 
+export type MutationUpdateAboutArgs = {
+  data: AboutInput;
+};
+
+export type MutationUpdateAnnouncementArgs = {
+  data: AnnouncementInput;
+};
+
 export type MutationUpdateBlogArgs = {
   data: BlogInput;
   id: Scalars["ID"]["input"];
 };
 
+export type MutationUpdateFaqArgs = {
+  data: FaqInput;
+  id: Scalars["ID"]["input"];
+};
+
+export type MutationUpdateFaqPageArgs = {
+  data: FaqPageInput;
+};
+
 export type MutationUpdateFileInfoArgs = {
   id: Scalars["ID"]["input"];
   info?: InputMaybe<FileInfoInput>;
+};
+
+export type MutationUpdateMainPageArgs = {
+  data: MainPageInput;
 };
 
 export type MutationUpdateTranslateBatchTranslateJobArgs = {
@@ -478,10 +733,16 @@ export type PaginationArg = {
 export type PublicationState = "LIVE" | "PREVIEW";
 
 export type Query = {
+  about?: Maybe<AboutEntityResponse>;
+  announcement?: Maybe<AnnouncementEntityResponse>;
   blog?: Maybe<BlogEntityResponse>;
   blogs?: Maybe<BlogEntityResponseCollection>;
+  faq?: Maybe<FaqEntityResponse>;
+  faqPage?: Maybe<FaqPageEntityResponse>;
+  faqs?: Maybe<FaqEntityResponseCollection>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
+  mainPage?: Maybe<MainPageEntityResponse>;
   me?: Maybe<UsersPermissionsMe>;
   translateBatchTranslateJob?: Maybe<TranslateBatchTranslateJobEntityResponse>;
   translateBatchTranslateJobs?: Maybe<TranslateBatchTranslateJobEntityResponseCollection>;
@@ -495,12 +756,35 @@ export type Query = {
   usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>;
 };
 
+export type QueryAboutArgs = {
+  publicationState?: InputMaybe<PublicationState>;
+};
+
+export type QueryAnnouncementArgs = {
+  publicationState?: InputMaybe<PublicationState>;
+};
+
 export type QueryBlogArgs = {
   id?: InputMaybe<Scalars["ID"]["input"]>;
 };
 
 export type QueryBlogsArgs = {
   filters?: InputMaybe<BlogFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+};
+
+export type QueryFaqArgs = {
+  id?: InputMaybe<Scalars["ID"]["input"]>;
+};
+
+export type QueryFaqPageArgs = {
+  publicationState?: InputMaybe<PublicationState>;
+};
+
+export type QueryFaqsArgs = {
+  filters?: InputMaybe<FaqFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
@@ -514,6 +798,10 @@ export type QueryI18NLocalesArgs = {
   filters?: InputMaybe<I18NLocaleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+};
+
+export type QueryMainPageArgs = {
+  publicationState?: InputMaybe<PublicationState>;
 };
 
 export type QueryTranslateBatchTranslateJobArgs = {
@@ -990,6 +1278,59 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type GetHomePageDataQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetHomePageDataQuery = {
+  mainPage?: {
+    data?: {
+      id?: string | null;
+      attributes?: {
+        SEO?: { Title: string; Description: string } | null;
+        Blocks?: Array<
+          | {
+              __typename: "ComponentLayoutContent";
+              id: string;
+              Heading?: string | null;
+              Subheading?: string | null;
+              Content?: BlocksContent | null;
+            }
+          | {
+              __typename: "ComponentLayoutHeroSection";
+              id: string;
+              Heading?: string | null;
+              CTA?: {
+                id: string;
+                Title?: string | null;
+                URL?: string | null;
+                isExternal?: boolean | null;
+              } | null;
+              Image?: {
+                data: Array<{
+                  id?: string | null;
+                  attributes?: { url: string } | null;
+                }>;
+              } | null;
+            }
+          | { __typename: "Error" }
+          | null
+        > | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
+export type GetHomePageSeoDataQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetHomePageSeoDataQuery = {
+  mainPage?: {
+    data?: {
+      attributes?: {
+        SEO?: { Title: string; Description: string } | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -1004,3 +1345,69 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+
+export const GetHomePageDataDocument = new TypedDocumentString(`
+    query getHomePageData {
+  mainPage {
+    data {
+      id
+      attributes {
+        SEO {
+          Title
+          Description
+        }
+        Blocks {
+          __typename
+          ... on ComponentLayoutHeroSection {
+            id
+            __typename
+            Heading
+            CTA {
+              id
+              Title
+              URL
+              isExternal
+            }
+            Image {
+              data {
+                id
+                attributes {
+                  url
+                }
+              }
+            }
+          }
+          __typename
+          ... on ComponentLayoutContent {
+            __typename
+            id
+            Heading
+            Subheading
+            Content
+          }
+        }
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  GetHomePageDataQuery,
+  GetHomePageDataQueryVariables
+>;
+export const GetHomePageSeoDataDocument = new TypedDocumentString(`
+    query getHomePageSEOData {
+  mainPage {
+    data {
+      attributes {
+        SEO {
+          Title
+          Description
+        }
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  GetHomePageSeoDataQuery,
+  GetHomePageSeoDataQueryVariables
+>;
