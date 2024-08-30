@@ -13,6 +13,7 @@ import {
   BlocksRenderer,
   type BlocksContent,
 } from "@strapi/blocks-react-renderer";
+import BlockRendererClient from "./components/BlockRendererClient";
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await ExecuteGraphql({
@@ -61,7 +62,7 @@ export default async function Home() {
       {heroSectionData ? <Hero heroData={heroSectionData} /> : <p>No data</p>}
       <Main>
         <div className="prose mx-auto prose-a:text-indigo-600 prose-a:text-base prose-a:font-semibold prose-a:leading-7   dark:prose-a:text-indigo-400 hover:prose-a:opacity-75 dark:prose-invert">
-          <BlocksRenderer content={content} />
+          <BlockRendererClient content={content} />
         </div>
         <div className="mt-2 mb-16 flex">
           <Link

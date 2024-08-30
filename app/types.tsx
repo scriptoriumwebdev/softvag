@@ -3,6 +3,20 @@ import {
   ComponentLayoutHeroSection,
 } from "@/gql/graphql";
 
+export type StrapiResponseModel = {
+  event: string;
+  createdAt: string;
+  model: string;
+  uid: string;
+  entry: {
+    id: number;
+    slug: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+  };
+};
+
 export interface SEO {
   Title: string;
   Description: string;
