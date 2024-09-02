@@ -60,18 +60,19 @@ export default async function Home() {
         <div className="prose mx-auto prose-a:text-indigo-600 prose-a:text-base prose-a:font-semibold prose-a:leading-7   dark:prose-a:text-indigo-400 hover:prose-a:opacity-75 dark:prose-invert">
           <BlockRendererClient content={content as BlocksContent} />
         </div>
-        <div className="mt-2 mb-16 flex">
+        <div className="mt-16 flex">
           <Link
             href="/modyfikacje-oprogramowania-skrzyn-biegow-DSG-i-S-Tronic"
             className="text-base font-semibold leading-7 text-indigo-600  dark:text-indigo-400 hover:opacity-75 "
           >
             Sprawdź ofertę <span aria-hidden="true">&rarr;</span>
           </Link>
+          <div className="mt-16 relative" id="film"></div>
         </div>
         <iframe
           width="100%"
           height="100%"
-          className="aspect-video relative"
+          className="aspect-video relative mt-16"
           src="https://www.youtube-nocookie.com/embed/s27Ledd4JAA?si=iVO50PiArph4zaJb"
           title="DSG i S Tronic PROBLEM - niskie obroty + rozwiązanie - chiptuning"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
