@@ -9,10 +9,7 @@ import {
   GetHomePageSeoDataDocument,
 } from "@/gql/graphql";
 import { generateSEOData } from "./utils";
-import {
-  BlocksRenderer,
-  type BlocksContent,
-} from "@strapi/blocks-react-renderer";
+import { type BlocksContent } from "@strapi/blocks-react-renderer";
 import BlockRendererClient from "./components/BlockRendererClient";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -22,7 +19,6 @@ export async function generateMetadata(): Promise<Metadata> {
   });
   if (!pageData || !pageData.mainPage || !pageData.mainPage.data)
     throw new Error();
-  // console.log(`data`, pageData);
   const generatedSEOData = generateSEOData(pageData.mainPage.data);
   return {
     title: generatedSEOData?.Title,
@@ -62,7 +58,7 @@ export default async function Home() {
       {heroSectionData ? <Hero heroData={heroSectionData} /> : <p>No data</p>}
       <Main>
         <div className="prose mx-auto prose-a:text-indigo-600 prose-a:text-base prose-a:font-semibold prose-a:leading-7   dark:prose-a:text-indigo-400 hover:prose-a:opacity-75 dark:prose-invert">
-          <BlockRendererClient content={content} />
+          <BlockRendererClient content={content as BlocksContent} />
         </div>
         <div className="mt-2 mb-16 flex">
           <Link
@@ -76,7 +72,7 @@ export default async function Home() {
           width="100%"
           height="100%"
           className="aspect-video relative"
-          src="https://www.youtube.com/embed/s27Ledd4JAA?si=iVO50PiArph4zaJb"
+          src="https://www.youtube-nocookie.com/embed/s27Ledd4JAA?si=iVO50PiArph4zaJb"
           title="DSG i S Tronic PROBLEM - niskie obroty + rozwiązanie - chiptuning"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           referrerPolicy="strict-origin-when-cross-origin"

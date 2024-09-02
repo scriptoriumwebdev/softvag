@@ -2,7 +2,20 @@ import { Fragment } from "react";
 import { FaCheck, FaMinus } from "react-icons/fa";
 import type { Metadata } from "next";
 import Main from "../components/main";
-import { formatCurrency } from "../utils";
+import {
+  formatCurrency,
+  generateSEOData,
+  replaceWithWhiteSpaces,
+} from "../utils";
+import { ExecuteGraphql } from "@/api/graphQLApi";
+import {
+  ComponentLayoutPricingCard,
+  ComponentLayoutPricingPerks,
+  GetModificationPageDataDocument,
+  GetModificationPageSeoDataDocument,
+} from "@/gql/graphql";
+import BlockRendererClient from "../components/BlockRendererClient";
+import { BlocksContent } from "@strapi/blocks-react-renderer";
 
 export interface Pricing {
   title: string;
@@ -40,21 +53,27 @@ export interface OfferFeature {
   title?: string;
 }
 
-const meta = {
-  title:
-    "Modyfikacja oprogramowania sterowników automatycznych skrzyń biegów DSG, S Tronic",
-  description:
-    "Zoptymalizuj działanie skrzyń biegów DSG i S Tronic dzięki naszym modyfikacjom oprogramowania, które poprawiają osiągi, płynność zmiany biegów i komfort jazdy.",
-};
-
-export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
-  openGraph: {
-    title: meta.title,
-    description: meta.description,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const pageData = await ExecuteGraphql({
+    query: GetModificationPageSeoDataDocument,
+    variables: {},
+  });
+  if (
+    !pageData ||
+    !pageData.modificationPage ||
+    !pageData.modificationPage.data
+  )
+    throw new Error();
+  const generatedSEOData = generateSEOData(pageData.modificationPage.data);
+  return {
+    title: generatedSEOData?.Title,
+    description: generatedSEOData?.Description,
+    openGraph: {
+      title: generatedSEOData?.Title,
+      description: generatedSEOData?.Description,
+    },
+  };
+}
 
 const pageData: Pricing = {
   title:
@@ -177,117 +196,150 @@ const pageData: Pricing = {
   ],
 };
 
-const offersWithAsterisk = pageData.pricing
-  .filter((i) => i.offers.some((j) => j.offerAsterisk))
-  .map((k) => k.offers[0]);
+export default async function Example() {
+  const data = await ExecuteGraphql({
+    query: GetModificationPageDataDocument,
+    variables: {},
+  });
 
-export default function Example() {
+  if (!data || !data.modificationPage || !data.modificationPage.data)
+    throw new Error();
+
+  const heading = data.modificationPage.data.attributes?.Heading;
+  const subheading = data.modificationPage.data.attributes?.Subheading;
+  const pricingData = data.modificationPage.data.attributes?.Blocks;
+  const footerData = data.modificationPage.data.attributes?.PageFooter;
+
+  const offersWithAsterisk = pricingData
+    ?.filter((i) => {
+      const typedPricing = i as {
+        __typename: "ComponentLayoutPricingCard";
+      } & ComponentLayoutPricingCard;
+      if (!typedPricing.Pricing) {
+        return false;
+      }
+      return typedPricing.Pricing.some(
+        (j) =>
+          j?.Price?.PrefixText !== undefined && j?.Price?.PrefixText !== null
+      );
+    })
+    .map((k) => {
+      const typedPricing = k as {
+        __typename: "ComponentLayoutPricingCard";
+      } & ComponentLayoutPricingCard;
+      return typedPricing.Pricing && typedPricing.Pricing[0]!;
+    });
+
   return (
     <Main>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-            {pageData.title}
+            {replaceWithWhiteSpaces(heading as string)}
           </h1>
           <p className="mx-auto mt-2 max-w-2xl text-center text-md leading-8 text-gray-600 dark:text-neutral-400">
-            {pageData.subtitle}
+            {replaceWithWhiteSpaces(subheading as string)}
           </p>
         </div>
-        {pageData.pricing.map((pricing) => (
-          <div
-            key={pricing.id}
-            className="mx-auto mt-8 max-w-2xl rounded-3xl ring-1 ring-gray-200 dark:ring-gray-600 sm:mt-20 lg:mx-0 lg:max-w-none"
-          >
-            <div className="p-4 md:p-10 lg:flex-auto">
-              <h3 className="text-md font-bold tracking-tight text-gray-900 dark:text-neutral-200">
-                {pricing.pricingTitle}
-              </h3>
 
-              {pricing.offers.map((offer) => (
-                <div
-                  key={offer.id}
-                  className="mx-auto lg:mx-0 md:grid md:grid-cols-2 gap-2 mb-4"
-                >
-                  <div>
-                    {offer.offerTitle ? (
-                      <div className="mt-10 flex items-center gap-x-4">
-                        <h4 className="text-sm font-semibold leading-6 text-indigo-600 dark:text-indigo-400">
-                          {offer.offerTitle}
-                        </h4>
-                        <div className="h-px flex-auto bg-gray-100 dark:bg-gray-600" />
-                      </div>
-                    ) : null}
-                    <ul
-                      role="list"
-                      className="mt-8 text-sm leading-6 text-gray-600 dark:text-neutral-200 list-disc list-outside"
+        {pricingData?.map((pricing) => {
+          const typedPricing = pricing as {
+            __typename: "ComponentLayoutPricingCard";
+          } & ComponentLayoutPricingCard;
+
+          if (!typedPricing) throw new Error();
+
+          return (
+            <div
+              key={typedPricing.id}
+              className="mx-auto mt-8 max-w-2xl rounded-3xl ring-1 ring-gray-200 dark:ring-gray-600 sm:mt-20 lg:mx-0 lg:max-w-none"
+            >
+              <div className="p-4 md:p-10 lg:flex-auto">
+                <h3 className="text-md font-bold tracking-tight text-gray-900 dark:text-neutral-200">
+                  {replaceWithWhiteSpaces(typedPricing.Title as string)}
+                </h3>
+
+                {typedPricing.Pricing?.filter(
+                  (offer): offer is ComponentLayoutPricingPerks =>
+                    offer !== null
+                ).map((offer) => {
+                  return (
+                    <div
+                      key={offer.id}
+                      className="mx-auto lg:mx-0 md:grid md:grid-cols-2 gap-2 mb-4"
                     >
-                      {offer.offerFeatures.map((feature) => {
-                        if (feature.title)
-                          return (
-                            <li
-                              key={feature.id}
-                              className="gap-x-3 list-item mt-4 -ml-4 italic list-none"
-                            >
-                              {feature.title}
-                            </li>
-                          );
-                        return (
-                          <li key={feature.id} className="gap-x-3 list-item">
-                            {feature.text}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                  <div className="pt-8 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex lg:justify-center">
-                    <div className="text-center lg:flex lg:flex-col lg:justify-center lg:align-middle">
-                      <div className="mx-auto max-w-xs px-8">
-                        <p className="flex items-baseline justify-center  ">
-                          <span className="text-3xl font-bold tracking-tight text-gray-900 dark:text-neutral-100">
-                            {offer.offerPrefix}{" "}
-                            {offer.offerAsterisk ? (
-                              <sup>
-                                <a href={`#${offer.offerAsterisk}`}>
-                                  {offer.offerAsterisk}{" "}
-                                </a>
-                              </sup>
-                            ) : null}
-                            {formatCurrency(
-                              offer.offerPrice,
-                              offer.offerCurrency
-                            )}{" "}
-                          </span>
-                        </p>
-                        {offer.offerPriceText ? (
-                          <p className="mt-2 text-xs leading-5 text-gray-600 dark:text-neutral-400">
-                            {offer.offerPriceText}
-                          </p>
+                      <div>
+                        {offer.Title ? (
+                          <div className="mt-10 flex items-center gap-x-4">
+                            <h4 className="text-sm font-semibold leading-6 text-indigo-600 dark:text-indigo-400">
+                              {replaceWithWhiteSpaces(offer.Title as string)}
+                            </h4>
+                            <div className="h-px flex-auto bg-gray-100 dark:bg-gray-600" />
+                          </div>
                         ) : null}
+                        <div
+                          role="list"
+                          className="mt-8 text-sm leading-6 text-gray-600 dark:text-neutral-200 list-disc list-outside"
+                        >
+                          <BlockRendererClient
+                            content={offer.Perks as BlocksContent}
+                          />
+                        </div>
+                      </div>
+                      <div className="pt-8 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex lg:justify-center">
+                        <div className="text-center lg:flex lg:flex-col lg:justify-center lg:align-middle">
+                          <div className="mx-auto max-w-xs px-8">
+                            <p className="flex items-baseline justify-center  ">
+                              <span className="text-3xl font-bold tracking-tight text-gray-900 dark:text-neutral-100">
+                                {offer.Price?.PrefixText ? (
+                                  <sup>
+                                    <a
+                                      className=" text-indigo-600  dark:text-indigo-400 hover:opacity-75"
+                                      href={`#${offer.Price?.Prefix}`}
+                                    >
+                                      {offer.Price?.Prefix}{" "}
+                                    </a>
+                                  </sup>
+                                ) : (
+                                  <span> {offer.Price?.Prefix} </span>
+                                )}
+                                {offer.Price?.Price} zł
+                              </span>
+                            </p>
+                            {offer.Price?.Text ? (
+                              <p className="mt-2 text-xs leading-5 text-gray-600 dark:text-neutral-400">
+                                {offer.Price?.Text}
+                              </p>
+                            ) : null}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              ))}
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="mx-auto max-w-7xl px-2 lg:px-16">
-        {offersWithAsterisk.map((offer) => (
-          <p key={offer.id} className="mt-16 text-justify relative">
-            <span
-              className="absolute -top-24 left-0"
-              id={offer.offerAsterisk}
-            ></span>
-            <sup>{offer.offerAsterisk}</sup> {offer.offerAsteriskText}
-          </p>
-        ))}
-        {pageData.note.map((item) => (
-          <p key={item.id} className="mt-16 text-justify">
-            {item.text}
-          </p>
-        ))}
+        {offersWithAsterisk?.map((offer, i) => {
+          if (!offer) return null;
+          return (
+            <p key={i} className="mt-16 text-justify relative">
+              <span
+                className="absolute -top-24 left-0"
+                id={offer?.Price?.Prefix || ""}
+              ></span>
+              <sup>{offer?.Price?.Prefix}</sup>{" "}
+              {replaceWithWhiteSpaces(offer?.Price?.PrefixText as string)}
+            </p>
+          );
+        }) || null}
+        <p className="mt-16 text-justify">
+          {replaceWithWhiteSpaces(footerData?.text as string)}
+        </p>
       </div>
     </Main>
   );

@@ -35,6 +35,7 @@ export type Scalars = {
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: { input: unknown; output: unknown };
   MainPageBlocksDynamicZoneInput: { input: unknown; output: unknown };
+  ModificationPageBlocksDynamicZoneInput: { input: unknown; output: unknown };
   /** The `Upload` scalar type represents a file upload. */
   Upload: { input: unknown; output: unknown };
 };
@@ -86,11 +87,11 @@ export type AnnouncementInput = {
 };
 
 export type Blog = {
+  Content?: Maybe<Scalars["JSON"]["output"]>;
   Teaser: Scalars["String"]["output"];
-  content?: Maybe<Scalars["String"]["output"]>;
+  Title?: Maybe<Scalars["String"]["output"]>;
   createdAt?: Maybe<Scalars["DateTime"]["output"]>;
   image?: Maybe<UploadFileEntityResponse>;
-  name?: Maybe<Scalars["String"]["output"]>;
   publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
   slug?: Maybe<Scalars["String"]["output"]>;
   updatedAt?: Maybe<Scalars["DateTime"]["output"]>;
@@ -111,12 +112,12 @@ export type BlogEntityResponseCollection = {
 };
 
 export type BlogFiltersInput = {
+  Content?: InputMaybe<JsonFilterInput>;
   Teaser?: InputMaybe<StringFilterInput>;
+  Title?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<BlogFiltersInput>>>;
-  content?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
-  name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<BlogFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<BlogFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
@@ -125,10 +126,10 @@ export type BlogFiltersInput = {
 };
 
 export type BlogInput = {
+  Content?: InputMaybe<Scalars["JSON"]["input"]>;
   Teaser?: InputMaybe<Scalars["String"]["input"]>;
-  content?: InputMaybe<Scalars["String"]["input"]>;
+  Title?: InputMaybe<Scalars["String"]["input"]>;
   image?: InputMaybe<Scalars["ID"]["input"]>;
-  name?: InputMaybe<Scalars["String"]["input"]>;
   publishedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
   slug?: InputMaybe<Scalars["String"]["input"]>;
 };
@@ -165,6 +166,13 @@ export type ComponentComponentButton = {
   isExternal?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
+export type ComponentComponentCta = {
+  Title?: Maybe<Scalars["String"]["output"]>;
+  URL?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["ID"]["output"];
+  isExternal?: Maybe<Scalars["Boolean"]["output"]>;
+};
+
 export type ComponentLayoutContent = {
   Content?: Maybe<Scalars["JSON"]["output"]>;
   Heading?: Maybe<Scalars["String"]["output"]>;
@@ -183,6 +191,63 @@ export type ComponentLayoutHeroSectionImageArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+};
+
+export type ComponentLayoutPageFooter = {
+  id: Scalars["ID"]["output"];
+  text?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type ComponentLayoutPageFooterInput = {
+  id?: InputMaybe<Scalars["ID"]["input"]>;
+  text?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type ComponentLayoutPricingCard = {
+  __typename: string;
+  Pricing?: Maybe<Array<Maybe<ComponentLayoutPricingPerks>>>;
+  Title?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["ID"]["output"];
+};
+
+export type ComponentLayoutPricingCardPricingArgs = {
+  filters?: InputMaybe<ComponentLayoutPricingPerksFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+};
+
+export type ComponentLayoutPricingPerks = {
+  Perks?: BlocksContent;
+  Price?: Maybe<ComponentLayoutPricingPrice>;
+  Title?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["ID"]["output"];
+};
+
+export type ComponentLayoutPricingPerksFiltersInput = {
+  Perks?: InputMaybe<JsonFilterInput>;
+  Price?: InputMaybe<ComponentLayoutPricingPriceFiltersInput>;
+  Title?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<ComponentLayoutPricingPerksFiltersInput>>>;
+  not?: InputMaybe<ComponentLayoutPricingPerksFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentLayoutPricingPerksFiltersInput>>>;
+};
+
+export type ComponentLayoutPricingPrice = {
+  Prefix?: Maybe<Scalars["String"]["output"]>;
+  PrefixText?: Maybe<Scalars["String"]["output"]>;
+  Price?: Maybe<Scalars["Int"]["output"]>;
+  Text?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["ID"]["output"];
+};
+
+export type ComponentLayoutPricingPriceFiltersInput = {
+  Prefix?: InputMaybe<StringFilterInput>;
+  PrefixText?: InputMaybe<StringFilterInput>;
+  Price?: InputMaybe<IntFilterInput>;
+  Text?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<ComponentLayoutPricingPriceFiltersInput>>>;
+  not?: InputMaybe<ComponentLayoutPricingPriceFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentLayoutPricingPriceFiltersInput>>>;
 };
 
 export type ComponentSeoSeo = {
@@ -353,13 +418,19 @@ export type GenericMorph =
   | Announcement
   | Blog
   | ComponentComponentButton
+  | ComponentComponentCta
   | ComponentLayoutContent
   | ComponentLayoutHeroSection
+  | ComponentLayoutPageFooter
+  | ComponentLayoutPricingCard
+  | ComponentLayoutPricingPerks
+  | ComponentLayoutPricingPrice
   | ComponentSeoSeo
   | Faq
   | FaqPage
   | I18NLocale
   | MainPage
+  | ModificationPage
   | TranslateBatchTranslateJob
   | UploadFile
   | UploadFolder
@@ -504,6 +575,41 @@ export type MainPageInput = {
   publishedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
 };
 
+export type ModificationPage = {
+  Blocks?: Maybe<Array<Maybe<ModificationPageBlocksDynamicZone>>>;
+  Heading?: Maybe<Scalars["String"]["output"]>;
+  PageFooter?: Maybe<ComponentLayoutPageFooter>;
+  SEO?: Maybe<ComponentSeoSeo>;
+  Subheading?: Maybe<Scalars["String"]["output"]>;
+  createdAt?: Maybe<Scalars["DateTime"]["output"]>;
+  publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  updatedAt?: Maybe<Scalars["DateTime"]["output"]>;
+};
+
+export type ModificationPageBlocksDynamicZone =
+  | ComponentLayoutPricingCard
+  | Error;
+
+export type ModificationPageEntity = {
+  attributes?: Maybe<ModificationPage>;
+  id?: Maybe<Scalars["ID"]["output"]>;
+};
+
+export type ModificationPageEntityResponse = {
+  data?: Maybe<ModificationPageEntity>;
+};
+
+export type ModificationPageInput = {
+  Blocks?: InputMaybe<
+    Array<Scalars["ModificationPageBlocksDynamicZoneInput"]["input"]>
+  >;
+  Heading?: InputMaybe<Scalars["String"]["input"]>;
+  PageFooter?: InputMaybe<ComponentLayoutPageFooterInput>;
+  SEO?: InputMaybe<ComponentSeoSeoInput>;
+  Subheading?: InputMaybe<Scalars["String"]["input"]>;
+  publishedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+};
+
 export type Mutation = {
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
@@ -522,6 +628,7 @@ export type Mutation = {
   deleteFaq?: Maybe<FaqEntityResponse>;
   deleteFaqPage?: Maybe<FaqPageEntityResponse>;
   deleteMainPage?: Maybe<MainPageEntityResponse>;
+  deleteModificationPage?: Maybe<ModificationPageEntityResponse>;
   deleteTranslateBatchTranslateJob?: Maybe<TranslateBatchTranslateJobEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -547,6 +654,7 @@ export type Mutation = {
   updateFaqPage?: Maybe<FaqPageEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateMainPage?: Maybe<MainPageEntityResponse>;
+  updateModificationPage?: Maybe<ModificationPageEntityResponse>;
   updateTranslateBatchTranslateJob?: Maybe<TranslateBatchTranslateJobEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -683,6 +791,10 @@ export type MutationUpdateMainPageArgs = {
   data: MainPageInput;
 };
 
+export type MutationUpdateModificationPageArgs = {
+  data: ModificationPageInput;
+};
+
 export type MutationUpdateTranslateBatchTranslateJobArgs = {
   data: TranslateBatchTranslateJobInput;
   id: Scalars["ID"]["input"];
@@ -744,6 +856,7 @@ export type Query = {
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   mainPage?: Maybe<MainPageEntityResponse>;
   me?: Maybe<UsersPermissionsMe>;
+  modificationPage?: Maybe<ModificationPageEntityResponse>;
   translateBatchTranslateJob?: Maybe<TranslateBatchTranslateJobEntityResponse>;
   translateBatchTranslateJobs?: Maybe<TranslateBatchTranslateJobEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
@@ -801,6 +914,10 @@ export type QueryI18NLocalesArgs = {
 };
 
 export type QueryMainPageArgs = {
+  publicationState?: InputMaybe<PublicationState>;
+};
+
+export type QueryModificationPageArgs = {
   publicationState?: InputMaybe<PublicationState>;
 };
 
@@ -1331,6 +1448,58 @@ export type GetHomePageSeoDataQuery = {
   } | null;
 };
 
+export type GetModificationPageDataQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetModificationPageDataQuery = {
+  modificationPage?: {
+    data?: {
+      id?: string | null;
+      attributes?: {
+        Heading?: string | null;
+        Subheading?: string | null;
+        Blocks?: Array<
+          | {
+              __typename: "ComponentLayoutPricingCard";
+              id: string;
+              Title?: string | null;
+              Pricing?: Array<{
+                id: string;
+                Title?: string | null;
+                Perks?: unknown | null;
+                Price?: {
+                  id: string;
+                  Price?: number | null;
+                  Prefix?: string | null;
+                  PrefixText?: string | null;
+                  Text?: string | null;
+                } | null;
+              } | null> | null;
+            }
+          | { __typename: "Error" }
+          | null
+        > | null;
+        PageFooter?: { text?: string | null } | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
+export type GetModificationPageSeoDataQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetModificationPageSeoDataQuery = {
+  modificationPage?: {
+    data?: {
+      attributes?: {
+        SEO?: { Title: string; Description: string } | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -1410,4 +1579,59 @@ export const GetHomePageSeoDataDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   GetHomePageSeoDataQuery,
   GetHomePageSeoDataQueryVariables
+>;
+export const GetModificationPageDataDocument = new TypedDocumentString(`
+    query getModificationPageData {
+  modificationPage {
+    data {
+      id
+      attributes {
+        Heading
+        Subheading
+        Blocks {
+          __typename
+          ... on ComponentLayoutPricingCard {
+            id
+            Title
+            Pricing {
+              id
+              Title
+              Perks
+              Price {
+                id
+                Price
+                Prefix
+                PrefixText
+                Text
+              }
+            }
+          }
+        }
+        PageFooter {
+          text
+        }
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  GetModificationPageDataQuery,
+  GetModificationPageDataQueryVariables
+>;
+export const GetModificationPageSeoDataDocument = new TypedDocumentString(`
+    query getModificationPageSEOData {
+  modificationPage {
+    data {
+      attributes {
+        SEO {
+          Title
+          Description
+        }
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  GetModificationPageSeoDataQuery,
+  GetModificationPageSeoDataQueryVariables
 >;

@@ -1,0 +1,46 @@
+query getModificationPageData {
+  modificationPage {
+    data {
+      id
+      attributes {
+        Heading
+        Subheading
+        Blocks {
+          __typename
+          ... on ComponentLayoutPricingCard {
+            id
+            Title
+            Pricing {
+              id
+              Title
+              Perks
+              Price {
+                id
+                Price
+                Prefix
+                PrefixText
+                Text
+              }
+            }
+          }
+        }
+        PageFooter {
+          text
+        }
+      }
+    }
+  }
+}
+
+query getModificationPageSEOData {
+  modificationPage {
+    data {
+      attributes {
+        SEO {
+          Title
+          Description
+        }
+      }
+    }
+  }
+}

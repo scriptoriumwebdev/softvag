@@ -174,7 +174,9 @@ export default function BlockRendererClient({
               }
             );
 
-            return <ol>{updatedChildren}</ol>;
+            return (
+              <ol className="list-decimal list-inside	">{updatedChildren}</ol>
+            );
           }
           const updatedChildren: Child[] | any = props.children.map(
             (child: Child) => {
@@ -199,7 +201,7 @@ export default function BlockRendererClient({
             }
           );
 
-          return <ul>{updatedChildren}</ul>;
+          return <ul className="list-disc list-inside	">{updatedChildren}</ul>;
         },
         paragraph: ({ children }: any) => {
           interface TextProps {
@@ -223,7 +225,7 @@ export default function BlockRendererClient({
               return data;
             }
           });
-          return <p className="">{whiteSpaces}</p>;
+          return <p>{whiteSpaces}</p>;
         },
 
         link: ({ children, url }) => {
