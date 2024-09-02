@@ -327,7 +327,7 @@ export default async function Example() {
         {offersWithAsterisk?.map((offer, i) => {
           if (!offer) return null;
           return (
-            <p key={i} className="mt-16 text-justify relative">
+            <p key={i} className="mt-16 relative">
               <span
                 className="absolute -top-24 left-0"
                 id={offer?.Price?.Prefix || ""}
@@ -337,9 +337,9 @@ export default async function Example() {
             </p>
           );
         }) || null}
-        <p className="mt-16 text-justify">
-          {replaceWithWhiteSpaces(footerData?.text as string)}
-        </p>
+        <div className="mt-16">
+          <BlockRendererClient content={footerData?.text as BlocksContent} />
+        </div>
       </div>
     </Main>
   );

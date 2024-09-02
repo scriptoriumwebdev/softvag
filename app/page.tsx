@@ -13,13 +13,13 @@ import { type BlocksContent } from "@strapi/blocks-react-renderer";
 import BlockRendererClient from "./components/BlockRendererClient";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pageData = await ExecuteGraphql({
+  const pageSEOData = await ExecuteGraphql({
     query: GetHomePageSeoDataDocument,
     variables: {},
   });
-  if (!pageData || !pageData.mainPage || !pageData.mainPage.data)
+  if (!pageSEOData || !pageSEOData.mainPage || !pageSEOData.mainPage.data)
     throw new Error();
-  const generatedSEOData = generateSEOData(pageData.mainPage.data);
+  const generatedSEOData = generateSEOData(pageSEOData.mainPage.data);
   return {
     title: generatedSEOData?.Title,
     description: generatedSEOData?.Description,

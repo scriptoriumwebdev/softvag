@@ -195,16 +195,15 @@ export type ComponentLayoutHeroSectionImageArgs = {
 
 export type ComponentLayoutPageFooter = {
   id: Scalars["ID"]["output"];
-  text?: Maybe<Scalars["String"]["output"]>;
+  text?: Maybe<Scalars["JSON"]["output"]>;
 };
 
 export type ComponentLayoutPageFooterInput = {
   id?: InputMaybe<Scalars["ID"]["input"]>;
-  text?: InputMaybe<Scalars["String"]["input"]>;
+  text?: InputMaybe<Scalars["JSON"]["input"]>;
 };
 
 export type ComponentLayoutPricingCard = {
-  __typename: string;
   Pricing?: Maybe<Array<Maybe<ComponentLayoutPricingPerks>>>;
   Title?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["ID"]["output"];
@@ -217,7 +216,7 @@ export type ComponentLayoutPricingCardPricingArgs = {
 };
 
 export type ComponentLayoutPricingPerks = {
-  Perks?: BlocksContent;
+  Perks?: Maybe<Scalars["JSON"]["output"]>;
   Price?: Maybe<ComponentLayoutPricingPrice>;
   Title?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["ID"]["output"];
@@ -1480,7 +1479,7 @@ export type GetModificationPageDataQuery = {
           | { __typename: "Error" }
           | null
         > | null;
-        PageFooter?: { text?: string | null } | null;
+        PageFooter?: { text?: unknown | null } | null;
       } | null;
     } | null;
   } | null;

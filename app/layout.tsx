@@ -14,7 +14,11 @@ export const metadata: Metadata = {
     template: "%s - Kraków - SoftVAG",
     default: "Chiptuning DSG - Kraków - SoftVAG",
   },
+  openGraph: {
+    title: "%s - Kraków - SoftVAG",
+  },
 };
+
 export default function RootLayout({
   children,
 }: {
