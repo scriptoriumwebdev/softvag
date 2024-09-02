@@ -277,7 +277,7 @@ export function Links() {
           </ul>
         </div>
       </div>
-      <Banner />
+      {/* <Banner /> */}
     </nav>
   );
 }
