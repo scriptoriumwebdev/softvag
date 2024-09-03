@@ -7,6 +7,8 @@ import { Providers } from "./providers";
 // import CookieBanner from "./components/cookiebanner";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Suspense } from "react";
+import Loading from "./components/loading";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -28,12 +30,14 @@ export default function RootLayout({
     <html lang="pl" suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>
-          <Links />
-          <div className="min-h-screen flex-grow mx-auto bg-gray-100 dark:bg-zinc-900">
-            {children}
-          </div>
-          <Footer />
-          {/* <CookieBanner /> */}
+          <Suspense fallback={<Loading />}>
+            <Links />
+            <div className="min-h-screen flex-grow mx-auto bg-gray-100 dark:bg-zinc-900">
+              {children}
+            </div>
+            <Footer />
+            {/* <CookieBanner /> */}
+          </Suspense>
         </Providers>
         <SpeedInsights />
         <Analytics />

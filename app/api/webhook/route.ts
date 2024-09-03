@@ -13,7 +13,10 @@ export async function POST(request: NextRequest): Promise<Response> {
 
   if (body && typeof body === "object" && "model" in body) {
     console.log(`model`, body.model);
-    if (body.model === "main-page") revalidatePath(`/`);
+    if (body.model === "main-page") {
+      console.log(`revalidate /`, body);
+      revalidatePath(`/`);
+    }
     if (body.model === "about-page") revalidatePath(`/o-firmie`);
     if (body.model === "adaptation-page")
       revalidatePath(`/kodowania-i-adaptacje-funkcjonalnosci-samochodu`);
