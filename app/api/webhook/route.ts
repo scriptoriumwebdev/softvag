@@ -14,7 +14,7 @@ export async function POST(request: NextRequest): Promise<Response> {
   if (body && typeof body === "object" && "model" in body) {
     console.log(`model`, body.model);
     if (body.model === "main-page") {
-      console.log(`revalidate /`, body);
+      console.log(`revalidate /`, body.entry);
       revalidatePath(`/`);
     }
     if (body.model === "about-page") revalidatePath(`/o-firmie`);

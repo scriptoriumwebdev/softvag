@@ -1,4 +1,5 @@
 import { TypedDocumentString } from "@/gql/graphql";
+import { waitUntil } from "@vercel/functions";
 
 type GraphQLResponse<T> =
   | { data?: undefined; errors: { message: string }[] }
@@ -49,6 +50,9 @@ export async function ExecuteGraphql<TResult, TVariables>({
     },
   });
   const graphqlResponse = (await res.json()) as GraphQLResponse<TResult>;
+  const graphqlResponsePromise = Promise.resolve(graphqlResponse);
+  console.log(`graphqlResponsePromise`, graphqlResponsePromise);
+  waitUntil(graphqlResponsePromise);
   if (graphqlResponse.errors) {
     throw TypeError(`GrapQL Error`, { cause: graphqlResponse.errors });
   }
