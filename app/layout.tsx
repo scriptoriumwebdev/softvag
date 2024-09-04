@@ -30,7 +30,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pl" suppressHydrationWarning>
-      <GoogleTagManager gtmId="GTM-PV2GFGSJ" />
       <body className={inter.className}>
         <Providers>
           <Suspense fallback={<Loading />}>
@@ -39,12 +38,13 @@ export default function RootLayout({
               {children}
             </div>
             <Footer />
-            <CookieBanner />
+            {/* <CookieBanner /> */}
           </Suspense>
         </Providers>
         <SpeedInsights />
         <Analytics />
       </body>
+      <GoogleTagManager gtmId="GTM-PV2GFGSJ" />
     </html>
   );
 }
