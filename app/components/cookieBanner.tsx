@@ -15,8 +15,6 @@ export default function CookieBanner() {
     setShowConsent(true);
     setCookie("cookie_consent", "true", {});
     window.gtag("consent", "update", {
-      ad_personalization: "denied",
-      ad_user_data: "denied",
       analytics_storage: "granted",
       functionality_storage: "granted",
     });
@@ -26,8 +24,6 @@ export default function CookieBanner() {
     setShowConsent(true);
     setCookie("cookie_consent", "false", {});
     window.gtag("consent", "update", {
-      ad_personalization: "denied",
-      ad_user_data: "denied",
       analytics_storage: "denied",
       functionality_storage: "granted",
     });
