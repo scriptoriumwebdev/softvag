@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ComponentLayoutHeroSection } from "@/gql/graphql";
 import { replaceWithWhiteSpaces } from "../utils/utils";
-import { sendGTMEvent } from "@next/third-parties/google";
+import { sendGAEvent } from "@next/third-parties/google";
 interface HeroProps {
   heroData?: ComponentLayoutHeroSection;
 }
@@ -35,7 +35,7 @@ export const Hero: React.FC<HeroProps> = ({ heroData }) => {
               data-te-ripple-color="light"
               href={heroData.CTA?.URL as string}
               role="button"
-              // onClick={() => sendGTMEvent({ event: 'buttonClicked', value: 'xyz' })}
+              // onClick={() => sendGAEvent({ event: 'buttonClicked', value: 'xyz' })}
             >
               {heroData.CTA?.Title}
             </Link>
