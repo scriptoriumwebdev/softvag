@@ -35,6 +35,7 @@ export const Hero: React.FC<HeroProps> = ({ heroData }) => {
               data-te-ripple-color="light"
               href={heroData.CTA?.URL as string}
               role="button"
+              id="cta"
               // onClick={() => sendGAEvent({ event: 'buttonClicked', value: 'xyz' })}
             >
               {heroData.CTA?.Title}
