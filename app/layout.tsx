@@ -4,13 +4,13 @@ import "./globals.css";
 import { Links } from "./components/links";
 import { Footer } from "./components/footer";
 import { Providers } from "./providers";
-// import CookieBanner from "./components/cookiebanner";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Suspense } from "react";
 import Loading from "./components/loading";
-import { GoogleAnalytics } from "@next/third-parties/google";
+// import { GoogleAnalytics } from "@next/third-parties/google";
 import CookieBanner from "./components/cookieBanner";
+import GoogleAnalytics from "./utils/GAnalytics";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -43,7 +43,7 @@ export default function RootLayout({
         </Providers>
         <SpeedInsights />
         <Analytics />
-        <GoogleAnalytics gaId="G-Y58F5YNVX4" />
+        <GoogleAnalytics GA_MEASUREMENT_ID="G-Y58F5YNVX4" />
       </body>
     </html>
   );
