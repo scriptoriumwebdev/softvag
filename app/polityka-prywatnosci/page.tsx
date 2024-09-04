@@ -118,7 +118,41 @@ export default function Privacy() {
                   <ul className="text-lg mt-4  mb-4  font-normal list-decimal">
                     <li>
                       Serwis jest hostowany (technicznie utrzymywany) na
-                      serwerach operatora: small.pl.
+                      serwerach operatora: vercel.com.
+                    </li>
+                    <li>
+                      Firma hostingowa w&nbsp;celu zapewnienia niezawodności
+                      technicznej prowadzi logi na poziomie serwera. Zapisowi
+                      mogą podlegać:
+                      <ul className="text-lg mb-4  font-normal list-latin  ml-8">
+                        <li>czas nadejścia zapytania,</li>
+                        <li>czas wysłania odpowiedzi,</li>
+                        <li>
+                          nazwę stacji klienta – identyfikacja realizowana przez
+                          protokół HTTP,
+                        </li>
+                        <li>
+                          informacje o&nbsp;błędach jakie nastąpiły przy
+                          realizacji transakcji HTTP,
+                        </li>
+                        <li>
+                          adres URL strony poprzednio odwiedzanej przez
+                          użytkownika (referer link) – w&nbsp;przypadku gdy
+                          przejście do Serwisu nastąpiło przez odnośnik,
+                        </li>
+                        <li>informacje o&nbsp;przeglądarce użytkownika,</li>
+                        <li>informacje o&nbsp;adresie IP,</li>
+                        <li>
+                          informacje diagnostyczne związane z&nbsp;procesem
+                          samodzielnego zamawiania usług poprzez rejestratory na
+                          stronie,
+                        </li>
+                        <li>
+                          informacje związane z&nbsp;obsługą poczty
+                          elektronicznej kierowanej do Operatora oraz wysyłanej
+                          przez Operatora.
+                        </li>
+                      </ul>
                     </li>
                   </ul>
                 </li>

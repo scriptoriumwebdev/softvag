@@ -30,8 +30,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pl" suppressHydrationWarning>
+      <GoogleTagManager gtmId="GTM-PV2GFGSJ" />
       <body className={inter.className}>
-        <GoogleTagManager gtmId="GTM-PV2GFGSJ" />
         <Providers>
           <Suspense fallback={<Loading />}>
             <Links />
