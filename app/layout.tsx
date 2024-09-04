@@ -10,7 +10,7 @@ import { Suspense } from "react";
 import Loading from "./components/loading";
 // import { GoogleAnalytics } from "@next/third-parties/google";
 import CookieBanner from "./components/cookieBanner";
-import GoogleAnalytics from "./utils/GAnalytics";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -30,6 +30,27 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pl" suppressHydrationWarning>
+      <head>
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=G-Y58F5YNVX4`}
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('consent', 'default', {
+                    'analytics_storage': 'denied'
+                });
+                
+                gtag('config', 'G-Y58F5YNVX4', {
+                    page_path: window.location.pathname,
+                });
+                `}
+        </Script>
+      </head>
       <body className={inter.className}>
         <Providers>
           <Suspense fallback={<Loading />}>
@@ -43,7 +64,6 @@ export default function RootLayout({
         </Providers>
         <SpeedInsights />
         <Analytics />
-        <GoogleAnalytics GA_MEASUREMENT_ID="G-Y58F5YNVX4" />
       </body>
     </html>
   );
