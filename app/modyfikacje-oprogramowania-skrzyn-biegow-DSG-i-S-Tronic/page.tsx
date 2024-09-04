@@ -6,7 +6,7 @@ import {
   formatCurrency,
   generateSEOData,
   replaceWithWhiteSpaces,
-} from "../utils";
+} from "../utils/utils";
 import { ExecuteGraphql } from "@/api/graphQLApi";
 import {
   ComponentLayoutPricingCard,

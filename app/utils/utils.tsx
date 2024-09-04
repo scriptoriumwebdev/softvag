@@ -1,4 +1,5 @@
-import { Data, SEO } from "./types";
+import { useEffect } from "react";
+import { Data, SEO } from "../types";
 
 export const formatCurrency = (price: number, currency: string) => {
   let format = "";

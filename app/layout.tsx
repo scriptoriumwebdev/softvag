@@ -9,6 +9,8 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Suspense } from "react";
 import Loading from "./components/loading";
+import { GoogleTagManager } from "@next/third-parties/google";
+import CookieBanner from "./components/cookieBanner";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -29,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="pl" suppressHydrationWarning>
       <body className={inter.className}>
+        <GoogleTagManager gtmId="GTM-PV2GFGSJ" />
         <Providers>
           <Suspense fallback={<Loading />}>
             <Links />
@@ -36,7 +39,7 @@ export default function RootLayout({
               {children}
             </div>
             <Footer />
-            {/* <CookieBanner /> */}
+            <CookieBanner />
           </Suspense>
         </Providers>
         <SpeedInsights />

@@ -7,7 +7,7 @@ import { TiAdjustBrightness } from "react-icons/ti";
 import { RiMoonClearFill } from "react-icons/ri";
 import { Divide as Hamburger } from "hamburger-react";
 import { useTheme } from "next-themes";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
@@ -39,6 +39,24 @@ export function Links() {
   ];
 
   const [isOpen, setOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  const useOutsideMenu = (ref: React.RefObject<HTMLInputElement>) => {
+    useEffect(() => {
+      function handleClickOutside(e: MouseEvent) {
+        const target = e.target as Node;
+        if (ref.current && !ref.current.contains(target)) {
+          setOpen(false);
+        }
+      }
+      document.addEventListener(`mousedown`, handleClickOutside);
+      return () => {
+        document.removeEventListener(`mousedown`, handleClickOutside);
+      };
+    }, [ref]);
+  };
+
+  useOutsideMenu(menuRef);
 
   return (
     <nav className="fixed w-screen bg-gray-50 dark:bg-zinc-900 shadow-lg z-10 ">
@@ -188,7 +206,7 @@ export function Links() {
         </div>
       </div>
 
-      <div className="md:hidden">
+      <div className="md:hidden" ref={menuRef}>
         <div
           className={`duration-300  ${
             isOpen ? "mt-0 " : "-mt-80 overflow-hidden"

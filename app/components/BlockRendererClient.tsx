@@ -92,7 +92,7 @@ import {
   type BlocksContent,
 } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
-import { replaceWithWhiteSpaces } from "../utils";
+import { replaceWithWhiteSpaces } from "../utils/utils";
 
 export default function BlockRendererClient({
   content,
