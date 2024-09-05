@@ -12,6 +12,7 @@ import { generateSEOData } from "./utils/utils";
 import { type BlocksContent } from "@strapi/blocks-react-renderer";
 import BlockRendererClient from "./components/BlockRendererClient";
 import { sendGTMEvent } from "@next/third-parties/google";
+import { cookies } from "next/headers";
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageSEOData = await ExecuteGraphql({

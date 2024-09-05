@@ -2,34 +2,44 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { hasCookie, setCookie } from "cookies-next";
+import { hasCookie, setCookie, getCookie } from "cookies-next";
 
 export default function CookieBanner() {
-  const [showConsent, setShowConsent] = useState(true);
+  const get = getCookie("cookie_consent");
+  const has = hasCookie("cookie_consent");
+  const [showConsentBanner, setShowConsentBanner] = useState(true);
+  const [pageHasCookie, setPageHasCookie] = useState(get);
+  useEffect(() => {
+    setShowConsentBanner(has);
+  }, [has]);
 
   useEffect(() => {
-    setShowConsent(hasCookie("cookie_consent"));
-  }, []);
+    // setShowConsentBanner(has);
+    if (get === "true") {
+      window.gtag("consent", "update", {
+        analytics_storage: "granted",
+        ad_user_data: "denied",
+      });
+    } else {
+      window.gtag("consent", "update", {
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+      });
+    }
+    console.log(get);
+  }, [get]);
 
   const acceptCookie = () => {
-    setShowConsent(true);
+    setShowConsentBanner(true);
     setCookie("cookie_consent", "true", {});
-    window.gtag("consent", "update", {
-      analytics_storage: "granted",
-      functionality_storage: "granted",
-    });
   };
 
   const declineCookie = () => {
-    setShowConsent(true);
+    setShowConsentBanner(true);
     setCookie("cookie_consent", "false", {});
-    window.gtag("consent", "update", {
-      analytics_storage: "denied",
-      functionality_storage: "granted",
-    });
   };
 
-  if (showConsent) {
+  if (showConsentBanner) {
     return null;
   }
 
