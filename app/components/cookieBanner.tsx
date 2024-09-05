@@ -26,7 +26,6 @@ export default function CookieBanner() {
         ad_user_data: "denied",
       });
     }
-    console.log(get);
   }, [get]);
 
   const acceptCookie = () => {
