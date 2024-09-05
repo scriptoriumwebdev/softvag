@@ -68,6 +68,7 @@ export default function About() {
                     <a
                       href="tel:+48698699982"
                       className="flex items-start duration-300 hover:scale-105 hover:opacity-75"
+                      id="phone"
                     >
                       <div className="shrink-0">
                         <div className="inline-block rounded-md bg-primary-100 p-4 text-primary">
@@ -88,6 +89,7 @@ export default function About() {
                     <a
                       href="mailto:info@softvag.com"
                       className="flex items-start duration-300 hover:scale-105 hover:opacity-75"
+                      id="mail"
                     >
                       <div className="shrink-0">
                         <div className="inline-block rounded-md bg-primary-100 p-4 text-primary">
@@ -114,6 +116,7 @@ export default function About() {
                         target="_blank"
                         className="transition"
                         title="Facebook"
+                        id="facebook"
                       >
                         <span className="sr-only">Facebook</span>
                         <FaFacebook className="h-6 w-6 duration-300 hover:scale-110 hover:opacity-75 text-gray-700 dark:text-neutral-200" />
@@ -126,6 +129,7 @@ export default function About() {
                         target="_blank"
                         className="transition"
                         title="YouTube"
+                        id="youtube"
                       >
                         <span className="sr-only">Youtube</span>
                         <FaYoutube className="h-6 w-6 duration-300 hover:scale-110 hover:opacity-75 text-gray-700 dark:text-neutral-200" />
