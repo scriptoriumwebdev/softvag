@@ -37,8 +37,6 @@ export default async function About() {
 
   if (!data || !data.about || !data.about.data) throw new Error();
 
-  console.log(`data`, data.about.data.attributes);
-
   const contentData = data.about?.data?.attributes?.Blocks!.find(
     (obj) => obj?.__typename === "ComponentLayoutContent"
   );
