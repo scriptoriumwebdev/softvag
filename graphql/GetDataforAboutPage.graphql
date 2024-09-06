@@ -1,0 +1,52 @@
+query getAboutPageData {
+  about {
+    data {
+      id
+      attributes {
+        Blocks {
+          __typename
+          ... on ComponentLayoutContent {
+            Heading
+            Subheading
+            Content
+          }
+          __typename
+          ... on ComponentLayoutCoverImage {
+            Background {
+              data {
+                attributes {
+                  alternativeText
+                  width
+                  height
+                  url
+                }
+              }
+            }
+            Title
+            Subtitle
+            id
+          }
+          __typename
+          ... on ComponentComponentCta {
+            Title
+            URL
+            isExternal
+          }
+        }
+      }
+    }
+  }
+}
+
+query getAboutPageSEOData {
+  about {
+    data {
+      attributes {
+        SEO {
+          Title
+          Description
+        }
+      }
+    }
+  }
+}

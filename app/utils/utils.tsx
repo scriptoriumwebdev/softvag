@@ -20,5 +20,6 @@ export const generateSEOData = (data: Data): SEO | undefined | null => {
 };
 
 export const replaceWithWhiteSpaces = (data: string) => {
+  if (!data) return null;
   return data.replace(/&nbsp;/g, "\u00A0");
 };

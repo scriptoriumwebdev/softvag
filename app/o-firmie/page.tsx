@@ -3,25 +3,53 @@ import Main from "../components/main";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { ExecuteGraphql } from "@/api/graphQLApi";
+import { generateSEOData, replaceWithWhiteSpaces } from "../utils/utils";
+import {
+  GetAboutPageDataDocument,
+  GetAboutPageSeoDataDocument,
+} from "@/gql/graphql";
+import { BlocksContent } from "@strapi/blocks-react-renderer";
+import BlockRendererClient from "../components/BlockRendererClient";
 
-const meta = {
-  title: "O Firmie",
-  description:
-    "Poznaj naszą firmę, która specjalizuje się w profesjonalnych modyfikacjach automatycznych skrzyń biegów DSG i S Tronic. Zaufaj naszemu doświadczeniu i pasji do motoryzacji.",
-};
-
-export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
-  openGraph: {
-    title: meta.title,
-    description: meta.description,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const pageSEOData = await ExecuteGraphql({
+    query: GetAboutPageSeoDataDocument,
+    variables: {},
+  });
+  if (!pageSEOData || !pageSEOData.about || !pageSEOData.about.data)
+    throw new Error();
+  const generatedSEOData = generateSEOData(pageSEOData.about.data);
+  return {
+    title: generatedSEOData?.Title,
+    description: generatedSEOData?.Description,
+    openGraph: {
+      title: generatedSEOData?.Title,
+      description: generatedSEOData?.Description,
+    },
+  };
+}
 
 export default async function About() {
-  // const data = await ExecuteGraphql(PagesGetListDocument, {});
-  // console.log(data.pages?.data);
+  const data = await ExecuteGraphql({
+    query: GetAboutPageDataDocument,
+    variables: {},
+  });
+
+  if (!data || !data.about || !data.about.data) throw new Error();
+
+  console.log(`data`, data.about.data.attributes);
+
+  const contentData = data.about?.data?.attributes?.Blocks!.find(
+    (obj) => obj?.__typename === "ComponentLayoutContent"
+  );
+
+  const coverImageData = data.about?.data?.attributes?.Blocks!.find(
+    (obj) => obj?.__typename === "ComponentLayoutCoverImage"
+  );
+
+  const ctaData = data.about?.data?.attributes?.Blocks!.find(
+    (obj) => obj?.__typename === "ComponentComponentCta"
+  );
 
   return (
     <Main>
@@ -29,10 +57,16 @@ export default async function About() {
         <div className="mx-auto grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2">
           <div className="lg:pr-4">
             <div className="relative overflow-hidden rounded-3xl bg-gray-900 px-6 pb-9 pt-64 shadow-2xl sm:px-12 lg:max-w-lg lg:px-8 lg:pb-8 xl:px-10 xl:pb-10">
-              <img
+              <Image
+                fill
                 className="absolute inset-0 h-full w-full object-cover brightness-125 saturate-0"
-                src="/ofirmie.webp"
-                alt=""
+                src={
+                  coverImageData?.Background?.data?.attributes?.url as string
+                }
+                alt={
+                  coverImageData?.Background?.data?.attributes
+                    ?.alternativeText as string
+                }
               />
               <div className="absolute inset-0 bg-gray-700 mix-blend-multiply" />
               <div
@@ -57,8 +91,10 @@ export default async function About() {
                 />
                 <blockquote className="mt-6 text-xl font-semibold leading-8 text-white">
                   <p>
-                    Modyfikacje charakterystyki pracy automatycznych skrzyń
-                    biegów DSG i&nbsp;S Tronic, kodowania i&nbsp;adaptacje.
+                    {replaceWithWhiteSpaces(coverImageData?.Title as string)}
+                  </p>
+                  <p className="text-lg">
+                    {replaceWithWhiteSpaces(coverImageData?.Subtitle as string)}
                   </p>
                 </blockquote>
               </figure>
@@ -67,27 +103,29 @@ export default async function About() {
           <div>
             <div className="text-base leading-7 lg:max-w-lg">
               <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-                O Firmie
+                {replaceWithWhiteSpaces(contentData?.Heading as string)}
               </h1>
               <div className="max-w-xl">
                 <p className="mt-6">
-                  Modyfikacje charakterystyki pracy automatycznych skrzyń biegów
-                  DSG i&nbsp;S Tronic, kodowania i&nbsp;adaptacje.
+                  {replaceWithWhiteSpaces(contentData?.Subheading as string)}
                 </p>
-                <p className="mt-6">Podstrona w budowie. Zapraszamy wkrótce.</p>
               </div>
-            </div>
-            <div className="mt-10 flex">
-              <Link
-                href="/modyfikacje-oprogramowania-skrzyn-biegow-DSG-i-S-Tronic"
-                className="text-base font-semibold leading-7 text-indigo-600  dark:text-indigo-400 hover:opacity-75 "
-              >
-                Sprawdź ofertę <span aria-hidden="true">&rarr;</span>
-              </Link>
             </div>
           </div>
         </div>
+        <div className="mt-6 md:mt-16">
+          <BlockRendererClient
+            content={contentData?.Content as BlocksContent}
+          />
+        </div>
       </div>
+      <Link
+        href={ctaData?.URL as string}
+        className="mt-6 text-base font-semibold leading-7 text-indigo-600  dark:text-indigo-400 hover:opacity-75 "
+      >
+        {replaceWithWhiteSpaces(ctaData?.Title as string)}{" "}
+        <span aria-hidden="true">&rarr;</span>
+      </Link>
     </Main>
   );
 }

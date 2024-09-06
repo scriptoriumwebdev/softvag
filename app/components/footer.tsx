@@ -80,6 +80,7 @@ export function Footer() {
               <a
                 href="tel:+48698699982"
                 className="block text-xl font-medium text-gray-900 dark:text-neutral-200 hover:opacity-75 sm:text-2xl"
+                id="phoneFooter"
               >
                 698 699 982
               </a>
@@ -94,6 +95,7 @@ export function Footer() {
               <a
                 href="mailto:info@softvag.com"
                 className="block text-xl font-medium text-gray-900 dark:text-neutral-200 hover:opacity-75 sm:text-2xl"
+                id="mailFooter"
               >
                 info@softvag.com
               </a>
@@ -110,6 +112,7 @@ export function Footer() {
                 rel="noreferrer nofollow"
                 target="_blank"
                 className="block text-xl font-medium text-gray-900 dark:text-neutral-200 hover:opacity-75 sm:text-2xl"
+                id="addressFooter"
               >
                 ul. Siemaszki 37/G6 <br /> 31-207 Kraków
               </a>
@@ -132,6 +135,7 @@ export function Footer() {
                     target="_blank"
                     className="transition"
                     title="Facebook"
+                    id="facebookFooter"
                   >
                     <span className="sr-only">Facebook</span>
                     <FaFacebook className="h-6 w-6 duration-300 hover:scale-110 hover:opacity-75 text-gray-700 dark:text-neutral-200 " />
@@ -145,6 +149,7 @@ export function Footer() {
                     target="_blank"
                     className="transition"
                     title="YouTube"
+                    id="youtubeFooter"
                   >
                     <span className="sr-only">Youtube</span>
                     <FaYoutube className="h-6 w-6 duration-300 hover:scale-110 hover:opacity-75 text-gray-700 dark:text-neutral-200 " />

@@ -14,34 +14,42 @@ export async function POST(request: NextRequest): Promise<Response> {
   if (body && typeof body === "object" && "model" in body) {
     console.log(`model`, body.model);
     if (body.model === "main-page") {
-      revalidatePath(`/`, "page");
+      revalidatePath(`/`, "layout");
       console.log(`revalidate`, body.model);
     }
-    if (body.model === "about-page") revalidatePath(`/o-firmie`, "page");
-    if (body.model === "adaptation-page")
+    if (body.model === "about") {
+      revalidatePath(`/o-firmie`);
+      console.log(`revalidate`, body.model);
+    }
+    if (body.model === "adaptation-page") {
       revalidatePath(
         `/kodowania-i-adaptacje-funkcjonalnosci-samochodu`,
         "page"
       );
-    console.log(`revalidate`, body.model);
+      console.log(`revalidate`, body.model);
+    }
 
-    if (body.model === "modification-page")
+    if (body.model === "modification-page") {
       revalidatePath(
-        `/modyfikacje-oprogramowania-skrzyn-biegow-DSG-i-S-Tronic`,
-        "page"
+        `/modyfikacje-oprogramowania-skrzyn-biegow-DSG-i-S-Tronic`
       );
-    console.log(`revalidate`, body.model);
+      console.log(`revalidate`, body.model);
+    }
 
-    if (body.model === "faq-page")
-      revalidatePath(`/pytania-i-odpowiedzi`, "page");
-    console.log(`revalidate`, body.model);
+    if (body.model === "faq-page") {
+      revalidatePath(`/pytania-i-odpowiedzi`);
+      console.log(`revalidate`, body.model);
+    }
 
-    if (body.model === "opinions-page") revalidatePath(`/opinie`, "page");
+    if (body.model === "opinions-page") {
+      revalidatePath(`/opinie`);
+      console.log(`revalidate`, body.model);
+    }
 
-    console.log(`revalidate`, body.model);
-
-    if (body.model === "contact-page") revalidatePath(`/kontakt`, "page");
-    console.log(`revalidate`, body.model);
+    if (body.model === "contact-page") {
+      revalidatePath(`/kontakt`);
+      console.log(`revalidate`, body.model);
+    }
 
     if (body.model === "blog" && body.entry && "slug" in body.entry) {
       revalidatePath(`/blog/${body.entry.slug}`, "layout");

@@ -50,6 +50,7 @@ export default function About() {
                       rel="noreferrer nofollow"
                       target="_blank"
                       className="flex items-center justify-start md:justify-center duration-300 hover:scale-105 w-full hover:opacity-75"
+                      id="address"
                     >
                       <div className="inline-block rounded-md bg-primary-100 p-4 text-primary">
                         <FaMapPin className="h-6 w-6" />

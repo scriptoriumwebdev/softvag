@@ -48,7 +48,11 @@ export type About = {
   updatedAt?: Maybe<Scalars["DateTime"]["output"]>;
 };
 
-export type AboutBlocksDynamicZone = ComponentLayoutContent | Error;
+export type AboutBlocksDynamicZone =
+  | ComponentComponentCta
+  | ComponentLayoutContent
+  | ComponentLayoutCoverImage
+  | Error;
 
 export type AboutEntity = {
   attributes?: Maybe<About>;
@@ -177,6 +181,13 @@ export type ComponentLayoutContent = {
   Content?: Maybe<Scalars["JSON"]["output"]>;
   Heading?: Maybe<Scalars["String"]["output"]>;
   Subheading?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["ID"]["output"];
+};
+
+export type ComponentLayoutCoverImage = {
+  Background?: Maybe<UploadFileEntityResponse>;
+  Subtitle?: Maybe<Scalars["String"]["output"]>;
+  Title?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["ID"]["output"];
 };
 
@@ -419,6 +430,7 @@ export type GenericMorph =
   | ComponentComponentButton
   | ComponentComponentCta
   | ComponentLayoutContent
+  | ComponentLayoutCoverImage
   | ComponentLayoutHeroSection
   | ComponentLayoutPageFooter
   | ComponentLayoutPricingCard
@@ -1394,6 +1406,62 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type GetAboutPageDataQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAboutPageDataQuery = {
+  about?: {
+    data?: {
+      id?: string | null;
+      attributes?: {
+        Blocks?: Array<
+          | {
+              __typename: "ComponentComponentCta";
+              Title?: string | null;
+              URL?: string | null;
+              isExternal?: boolean | null;
+            }
+          | {
+              __typename: "ComponentLayoutContent";
+              Heading?: string | null;
+              Subheading?: string | null;
+              Content?: BlocksContent | null;
+            }
+          | {
+              __typename: "ComponentLayoutCoverImage";
+              Title?: string | null;
+              Subtitle?: string | null;
+              id: string;
+              Background?: {
+                data?: {
+                  attributes?: {
+                    alternativeText?: string | null;
+                    width?: number | null;
+                    height?: number | null;
+                    url: string;
+                  } | null;
+                } | null;
+              } | null;
+            }
+          | { __typename: "Error" }
+          | null
+        > | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
+export type GetAboutPageSeoDataQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAboutPageSeoDataQuery = {
+  about?: {
+    data?: {
+      attributes?: {
+        SEO?: { Title: string; Description: string } | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
 export type GetHomePageDataQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetHomePageDataQuery = {
@@ -1514,6 +1582,67 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
+export const GetAboutPageDataDocument = new TypedDocumentString(`
+    query getAboutPageData {
+  about {
+    data {
+      id
+      attributes {
+        Blocks {
+          __typename
+          ... on ComponentLayoutContent {
+            Heading
+            Subheading
+            Content
+          }
+          __typename
+          ... on ComponentLayoutCoverImage {
+            Background {
+              data {
+                attributes {
+                  alternativeText
+                  width
+                  height
+                  url
+                }
+              }
+            }
+            Title
+            Subtitle
+            id
+          }
+          __typename
+          ... on ComponentComponentCta {
+            Title
+            URL
+            isExternal
+          }
+        }
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  GetAboutPageDataQuery,
+  GetAboutPageDataQueryVariables
+>;
+export const GetAboutPageSeoDataDocument = new TypedDocumentString(`
+    query getAboutPageSEOData {
+  about {
+    data {
+      attributes {
+        SEO {
+          Title
+          Description
+        }
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  GetAboutPageSeoDataQuery,
+  GetAboutPageSeoDataQueryVariables
+>;
 export const GetHomePageDataDocument = new TypedDocumentString(`
     query getHomePageData {
   mainPage {
